@@ -35,9 +35,6 @@ class _homeState extends State<home> {
       firebase_storage.FirebaseStorage.instance;
   File? _photo;
   final ImagePicker _picker = ImagePicker();
-List<item> list_item =[
-
-];
   Future imgFromGallery() async {
     final pickedFile = await _picker.pickImage(source: ImageSource.gallery);
     setState(() {
@@ -59,7 +56,7 @@ List<item> list_item =[
           .child('file/');
       await ref.putFile(_photo!);
     } catch (e) {
-      print('error occured');
+      print('error occurred');
     }
   }
 
@@ -132,12 +129,13 @@ List<item> list_item =[
                         child: const Text('Save'),
                         onPressed: () => {
                           current_date = DateTime.now(),
-                          db.collection("Post").doc('$current_date').set({
+                          db.collection("Post").doc().set({
                             'Email': user?.email,
                             'image': _photo?.path,
                             'location': location,
                             'type': type,
-                            'price': price
+                            'price': price,
+                            'current_data': current_date
                           }).onError(
                               (e, _) => print("Error writing document: $e")),
                           uploadFile(),

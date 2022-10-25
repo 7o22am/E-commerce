@@ -7,15 +7,12 @@ import 'package:e_commerce/itemRoot.dart';
 import 'firebase_options.dart';
 import 'welcome_screen.dart';
 
-Future<void> main() async {
+void main() async {
+  // These two lines
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
-  await FirebaseAppCheck.instance.activate(
-    webRecaptchaSiteKey: 'recaptcha-v3-site-key',
-  );
+  await Firebase.initializeApp( options: DefaultFirebaseOptions.currentPlatform,);
   runApp(MyApp());
 }
-
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
