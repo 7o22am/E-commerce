@@ -13,11 +13,11 @@ FirebaseFirestore db = FirebaseFirestore.instance;
 class _registrationState extends State<registration> {
   @override
   final _auth = FirebaseAuth.instance;
-  String username = '';
-  String email = '';
-  String pass = '';
-  String phone_num = '';
-  String city = '';
+  late  String username ;
+  late String email  ;
+  late String pass  ;
+  late String phone_num  ;
+  late String city  ;
   void tost(String wrong) {
     Fluttertoast.showToast(
         msg: wrong,
@@ -180,7 +180,8 @@ class _registrationState extends State<registration> {
                   child: MaterialButton(
                     onPressed: () async {
 
-                      if (username != '' && email =='' && city !=''&& phone_num!='' ) {
+                      if (username.isNotEmpty && email.isNotEmpty &&
+                          city.isNotEmpty&& phone_num.isNotEmpty && pass.isNotEmpty ) {
                         try {
                           final newusaer = await FirebaseAuth.instance
                               .createUserWithEmailAndPassword(
@@ -211,7 +212,8 @@ class _registrationState extends State<registration> {
                         }).onError(
                                 (e, _) => print("Error writing document: $e"));
                       }
-                      else tost('Empty Failed .. please Enter all ');
+                      else {tost('Empty Failed .. please Enter all ');
+                      }
 
                     },
                     minWidth: 200.0,

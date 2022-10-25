@@ -9,9 +9,7 @@ DateTime current_date = DateTime.now();
 FirebaseFirestore db = FirebaseFirestore.instance;
 
 class profile extends StatelessWidget {
-  final String documentId;
-
-  profile(this.documentId);
+  String username ='' , phone_num='' , city='' ;
   @override
   Widget build(BuildContext context) {
     CollectionReference users = FirebaseFirestore.instance.collection('user_Inf');
@@ -28,6 +26,9 @@ class profile extends StatelessWidget {
           }
           if (snapshot.connectionState == ConnectionState.done) {
             Map<String, dynamic> data = snapshot.data!.data() as Map<String, dynamic>;
+        /*    username = '${(data['name'])}';
+            phone_num = '${(data['phone_num'])}';
+            city = '${(data['city'])}';*/
             return  Column(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -39,6 +40,9 @@ class profile extends StatelessWidget {
                 ) ,
                 SizedBox(height: 40.0,),
                 TextField (
+                  onChanged: (value) {
+                     username =value;
+                  },
                   decoration: InputDecoration(
                     border: InputBorder.none,
                     labelText: '${(data['name'])}'.toUpperCase(),
@@ -61,6 +65,7 @@ class profile extends StatelessWidget {
                 SizedBox(height: 14.0,),
                 TextField (
                   enabled: false ,
+
                   decoration: InputDecoration(
                     border: InputBorder.none,
                     labelText: '${(data['email'])}',
@@ -82,6 +87,9 @@ class profile extends StatelessWidget {
                 ),
                 SizedBox(height: 14.0,),
                 TextField (
+                  onChanged: (value) {
+                    phone_num =value;
+                  },
                   decoration: InputDecoration(
                     border: InputBorder.none,
                     labelText: '${(data['phone_num'])}',
@@ -103,6 +111,9 @@ class profile extends StatelessWidget {
                 ),
                 SizedBox(height: 14.0,),
                 TextField (
+                  onChanged: (value) {
+                    city =value;
+                  },
                   decoration: InputDecoration(
                     border: InputBorder.none,
                     labelText: '${(data['city'])}',
@@ -132,12 +143,33 @@ class profile extends StatelessWidget {
                     child: MaterialButton(
                       onPressed: ()   async {
 
-
+                        db.collection('user_Inf').doc('${(data['email'])}').update({
+                          'name': username,
+                          'phone_num': phone_num,
+                          'city': city,
+                        }).onError(
+                                (e, _) => print("Error writing document: $e"));
+                        Scaffold.of(context).showSnackBar(SnackBar(
+                          content: const Text(' Edited successfully '),
+                          duration: const Duration(seconds: 3),
+                          action: SnackBarAction(
+                            label: 'back ?',
+                            onPressed: () {
+                              db.collection('user_Inf').doc('${(data['email'])}').update({
+                                'name': '${(data['name'])}',
+                                'phone_num': '${(data['phone_num'])}',
+                                'city': '${(data['city'])}',
+                              }).onError(
+                                      (e, _) => print("Error writing document: $e"));
+                            },
+                          ),
+                        ));
                       },
                       minWidth: 200.0,
                       height: 42.0,
                       child: Text(
                         'Updata !',
+
                       ),
                     ),
                   ),

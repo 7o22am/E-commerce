@@ -4,6 +4,7 @@ import 'package:e_commerce/profile_screen.dart';
 import 'package:e_commerce/search_screen.dart';
 import 'package:e_commerce/shop_screen.dart';
 import 'package:e_commerce/upload_screen.dart';
+import 'package:e_commerce/welcome_screen.dart';
 import 'package:flutter/material.dart';
 
 class main_screen extends StatefulWidget {
@@ -14,7 +15,7 @@ class main_screen extends StatefulWidget {
 }
 
 int currentpage = 0;
-List<Widget> pages = [home(), search(), upload_data()];
+List<Widget> pages = [home(), search(), upload_data() , profile() ,];
 
 class _main_screenState extends State<main_screen> {
   @override
@@ -28,11 +29,20 @@ class _main_screenState extends State<main_screen> {
     return Scaffold(
       appBar: AppBar(
         title: Text('E-commerce'),
-        actions: [IconButton(onPressed: () {
+        actions: [
+          IconButton(onPressed: () {
           Navigator.push(context,
               MaterialPageRoute(builder: (context) => shop()));
         },
-            icon: Icon(Icons.shopping_cart_outlined,size: 25))],
+            icon: Icon(Icons.shopping_cart_outlined,size: 25),
+        ),
+          IconButton(onPressed: () {
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => welcomepage()));
+          },
+            icon: Icon(Icons.logout,size: 25),
+          )
+        ],
       ),
 
       bottomNavigationBar: BottomNavigationBar(
