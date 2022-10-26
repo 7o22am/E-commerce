@@ -90,6 +90,7 @@ class profile extends StatelessWidget {
                   onChanged: (value) {
                     phone_num =value;
                   },
+                  keyboardType: TextInputType.number,
                   decoration: InputDecoration(
                     border: InputBorder.none,
                     labelText: '${(data['phone_num'])}',

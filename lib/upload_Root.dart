@@ -37,7 +37,7 @@ class _uploadRootState extends State<uploadRoot> {
             document.data()! as Map<String, dynamic>;
             if(data['Email'] == '${user?.email}'){
               return item(location: data['location'], type: data['type'],
-                price: data['price'], image: '',duc_id: document.id,
+                price: data['price'], image: data['image'],duc_id: document.id,
                 email: data['Email'], current_user: '${user?.email}',
                 current_data: '$current_date' ,
 
@@ -70,7 +70,8 @@ class item extends StatelessWidget {
     return Card(
         child: Column(
           children: [
-            Image.asset('image/logo.png'),
+            Image.network(image,height: 220.0,),
+            SizedBox(height: 14.0,),
             Row(
               children: [
                 Text(

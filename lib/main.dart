@@ -11,6 +11,7 @@ void main() async {
   // These two lines
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp( options: DefaultFirebaseOptions.currentPlatform,);
+  await FirebaseAppCheck.instance.activate(webRecaptchaSiteKey: 'recaptcha-v3-site-key');
   runApp(MyApp());
 }
 class MyApp extends StatelessWidget {

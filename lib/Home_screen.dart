@@ -4,13 +4,16 @@ import 'package:e_commerce/itemRoot.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:intl/intl.dart';
+import 'package:intl/number_symbols_data.dart';
 import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 
-late String location = 'null', price = 'null', type = 'null';
+late String location = 'null', price = 'null', type = 'null' , phone_num='' ,image_url='';
 bool buy_it = false;
 
 class home extends StatefulWidget {
@@ -26,7 +29,17 @@ class _homeState extends State<home> {
     super.initState();
 
   }
-
+  void tost(String wrong ){
+    Fluttertoast.showToast(
+        msg: wrong ,
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.BOTTOM,
+        timeInSecForIosWeb: 1,
+        backgroundColor: Colors.blue,
+        textColor: Colors.white,
+        fontSize: 16.0
+    );
+  }
   final user = FirebaseAuth.instance.currentUser;
   DateTime current_date = DateTime.now();
   FirebaseFirestore db = FirebaseFirestore.instance;
@@ -49,12 +62,15 @@ class _homeState extends State<home> {
   Future uploadFile() async {
     if (_photo == null) return;
     final fileName = basename(_photo!.path);
-    final destination = 'files/$fileName';
+    final destination = '$fileName';
     try {
       final ref = firebase_storage.FirebaseStorage.instance
           .ref(destination)
           .child('file/');
+
       await ref.putFile(_photo!);
+      image_url = (await ref.getDownloadURL()).toString();
+                    print(image_url);
     } catch (e) {
       print('error occurred');
     }
@@ -108,6 +124,7 @@ class _homeState extends State<home> {
                           onChanged: (value) {
                             price = value;
                           },
+                          keyboardType: TextInputType.number,
                           decoration: InputDecoration(
                             hintText: 'Enter Your Price ',
                             contentPadding: EdgeInsets.symmetric(
@@ -122,24 +139,44 @@ class _homeState extends State<home> {
                             contentPadding: EdgeInsets.symmetric(
                                 vertical: 10.0, horizontal: 20.0),
                           )), //Price
+
+                      TextField(
+                          onChanged: (value) {
+                            phone_num = value;
+                          },
+                          keyboardType: TextInputType.number,
+                          decoration: InputDecoration(
+                            hintText: 'Enter Your Phone Number ',
+                            contentPadding: EdgeInsets.symmetric(
+                                vertical: 10.0, horizontal: 20.0),
+                          )), //Price
                       SizedBox(
                         height: 20.0,
                       ),
                       ElevatedButton(
                         child: const Text('Save'),
                         onPressed: () => {
-                          current_date = DateTime.now(),
-                          db.collection("Post").doc().set({
-                            'Email': user?.email,
-                            'image': _photo?.path,
-                            'location': location,
-                            'type': type,
-                            'price': price,
-                            'current_data': current_date
-                          }).onError(
-                              (e, _) => print("Error writing document: $e")),
                           uploadFile(),
-                          Navigator.pop(context),
+                          if(location.isNotEmpty && type.isNotEmpty&&price.isNotEmpty
+                              && phone_num.isNotEmpty &&  _photo != null ){
+                            current_date = DateTime.now(),
+                            db.collection("Post").doc().set({
+                              'Email': user?.email,
+                              'image': image_url,
+                              'location': location,
+                              'type': type,
+                              'price': price,
+                              'phone': phone_num,
+                              'current_data': current_date
+                            }).onError(
+                                    (e, _) =>
+                                    print("Error writing document: $e")),
+
+                            Navigator.pop(context),
+                          }
+                          else {
+                            tost(' Enter all data ')
+                          }
                         },
                       )
                     ],

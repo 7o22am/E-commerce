@@ -28,6 +28,12 @@ class _main_screenState extends State<main_screen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        leading: IconButton(
+          onPressed: (){
+
+          },
+          icon: Icon(Icons.arrow_back_ios),
+        ),
         title: Text('E-commerce'),
         actions: [
           IconButton(onPressed: () {
