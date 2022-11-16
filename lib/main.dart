@@ -4,6 +4,7 @@ import 'package:firebase_app_check/firebase_app_check.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:e_commerce/itemRoot.dart';
+import 'Root.dart';
 import 'firebase_options.dart';
 import 'welcome_screen.dart';
 
@@ -23,7 +24,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: ThemeData.light().copyWith(
           primaryColor: Colors.lightBlue, backgroundColor: Colors.cyanAccent),
-      home: welcomepage(),
+      home: main_screen(),
     );
   }
 }

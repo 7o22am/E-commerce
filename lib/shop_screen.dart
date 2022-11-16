@@ -3,6 +3,7 @@ import 'package:e_commerce/upload_Root.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import 'Root.dart';
 import 'itemRoot.dart';
 
 class shop extends StatefulWidget {
@@ -17,11 +18,19 @@ class _shopState extends State<shop> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('E-commerce'),
+        leading: IconButton(
+          onPressed: (){
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => main_screen()));
+          },
+          icon: Icon(Icons.arrow_back_ios,color: Colors.black,),
+        ),
+        title: Center(child: Text('E-commerce' ,style: TextStyle(color: Colors.black),)),
         actions: [IconButton(onPressed: () {
 
         },
-            icon: Icon(Icons.info,size: 25))],
+            icon: Icon(Icons.info,size: 25,color: Colors.black,))],
+        backgroundColor: Colors.black12,
       ),
       body: shopRoot(),
     );

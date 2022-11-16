@@ -1,7 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:e_commerce/registration_scrren.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
+import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
+import 'itemRoot.dart';
 
 bool buy_it = false;
 class uploadRoot extends StatefulWidget {
@@ -14,6 +17,8 @@ class _uploadRootState extends State<uploadRoot> {
   final Stream<QuerySnapshot> _usersStream =
   FirebaseFirestore.instance.collection('Post').snapshots();
   FirebaseFirestore db = FirebaseFirestore.instance;
+  firebase_storage.FirebaseStorage storage =
+      firebase_storage.FirebaseStorage.instance;
 
   DateTime current_date = DateTime.now();
   @override
@@ -39,7 +44,7 @@ class _uploadRootState extends State<uploadRoot> {
               return item(location: data['location'], type: data['type'],
                 price: data['price'], image: data['image'],duc_id: document.id,
                 email: data['Email'], current_user: '${user?.email}',
-                current_data: '$current_date' ,
+                current_data: '$current_date', image_name: data['image_name'] ,
 
               );
             }
@@ -56,10 +61,10 @@ class _uploadRootState extends State<uploadRoot> {
 class item extends StatelessWidget {
   item({required this.email ,required this.type , required this.price,
     required this.location, required this.image,
-    required this.duc_id, required this.current_user,
+    required this.duc_id, required this.current_user,required this.image_name,
     required this.current_data});
   final String email ,type , price , location ,
-      image ,duc_id ,current_user , current_data;
+      image ,duc_id ,current_user , current_data ,image_name ;
   String get_image_name(String image_path){
     String s = image_path;
     List ss =s.split('/');
@@ -70,76 +75,19 @@ class item extends StatelessWidget {
     return Card(
         child: Column(
           children: [
-            Image.network(image,height: 220.0,),
-            SizedBox(height: 14.0,),
-            Row(
-              children: [
-                Text(
-                  '  Type  : ',
-                  style: TextStyle(
-                      fontSize: 20.0,
-
-                      fontWeight: FontWeight.bold,
-                      color: Colors.lightBlue),
-                ),
-                Text(
-                  '$type',
-                  style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),
-                ),
-              ],
-            ),
-            Row(
-              children: [
-                Text(
-                  '  Price  : ',
-                  style: TextStyle(
-                      fontSize: 20.0,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.lightBlue),
-                ),
-                Text(
-                  '$price',
-                  style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),
-                ),
-              ],
-            ),
-            Row(
-              children: [
-                Text(
-                  '  Location  : ',
-                  style: TextStyle(
-                      fontSize: 20.0,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.lightBlue),
-                ),
-                Text(
-                  '$location',
-                  maxLines: 1,
-                  style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),
-                ),
-              ],
-            ),
-            Row(
-              children: [
-                Text(
-                  '  Data add  : ',
-                  style: TextStyle(
-                      fontSize: 20.0,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.lightBlue),
-                ),
-                Text(
-                  '$current_data',
-                  maxLines: 1,
-                  style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),
-                ),
-              ],
-            ),
+            Listitem(type: '$type', price: '$price' ,time: '$current_data',
+                location: '$location' ,imagesee: '$image'),
 
             ElevatedButton(
-                onPressed: () {
+                style: ElevatedButton.styleFrom(
+                    primary: Colors.white10
+                ),
+                onPressed: () async {
                   db.collection('Post').doc('$duc_id').delete();
-                  print('$duc_id');
+                  final storageRef = FirebaseStorage.instance.ref(image_name);
+                  final desertRef = storageRef.child('file/');
+                  await desertRef.delete();
+
                   Scaffold.of(context).showSnackBar(SnackBar(
                     content: const Text(' Deleted successfully '),
                     duration: const Duration(seconds: 3),

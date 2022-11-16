@@ -37,6 +37,7 @@ class profile extends StatelessWidget {
                 CircleAvatar(
                   backgroundImage: AssetImage('image/logo.png' ),
                   minRadius: 80.0,
+
                 ) ,
                 SizedBox(height: 40.0,),
                 TextField (

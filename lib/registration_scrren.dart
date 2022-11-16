@@ -40,12 +40,15 @@ class _registrationState extends State<registration> {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: <Widget>[
               SizedBox(
-                height: 70.0,
+                height: 120.0,
               ),
               Container(
                 height: 200.0,
-                child: Image.asset('image/logo.png'),
+                child: Image.asset('image/regis.gif'),
+              ),   SizedBox(
+                height: 30.0,
               ),
+              Center(child: Text('Register now ',style: TextStyle(fontSize: 40 ,color: Colors.lightBlue ,),) ),
               SizedBox(
                 height: 30.0,
               ),

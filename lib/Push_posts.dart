@@ -1,0 +1,224 @@
+import 'dart:ffi';
+import 'dart:io';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_dropdown/flutter_dropdown.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
+import 'package:path/path.dart';
+import 'Home_screen.dart';
+import 'Root.dart';
+
+late String location = 'null', price = 'null', type = 'null',
+    phone_num = '',  dep,image_url='',image_name='';
+bool buy_it = false;
+
+class push_posts extends StatefulWidget {
+  const push_posts({Key? key}) : super(key: key);
+  @override
+  State<push_posts> createState() => _push_postsState();
+}
+
+void tost(String wrong) {
+  Fluttertoast.showToast(
+      msg: wrong,
+      toastLength: Toast.LENGTH_SHORT,
+      gravity: ToastGravity.BOTTOM,
+      timeInSecForIosWeb: 1,
+      backgroundColor: Colors.blue,
+      textColor: Colors.white,
+      fontSize: 16.0);
+}
+
+final user = FirebaseAuth.instance.currentUser;
+DateTime current_date = DateTime.now();
+FirebaseFirestore db = FirebaseFirestore.instance;
+final _auth = FirebaseAuth.instance;
+firebase_storage.FirebaseStorage storage =
+    firebase_storage.FirebaseStorage.instance;
+File? _photo;
+
+class _push_postsState extends State<push_posts> {
+  void initState() {
+    super.initState();
+
+  }
+
+  final ImagePicker _picker = ImagePicker();
+  Future imgFromGallery() async {
+    final pickedFile = await _picker.pickImage(source: ImageSource.gallery);
+    setState(() {
+      if (pickedFile != null) {
+        _photo = File(pickedFile.path);
+      } else {
+        print('No image selected.');
+      }
+    });
+    image_name =pickedFile?.name as String;
+    uploadFile();
+  }
+
+  Future uploadFile() async {
+    if (_photo == null) return;
+    try {
+        final fileName = basename(_photo!.path);
+        final destination = '$fileName';
+        final ref = firebase_storage.FirebaseStorage.instance
+            .ref(destination)
+            .child('file/');
+        await ref.putFile(_photo!);
+         setState(() async {
+           image_url = (await ref.getDownloadURL()).toString();
+         });
+
+      ;
+    } catch (e) {
+      print('error occurred');
+    }
+
+  }
+
+  @override
+
+  Widget build(BuildContext context) {
+    return SingleChildScrollView(
+      child: Container(
+        height: 600,
+        color: Colors.white,
+        child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisSize: MainAxisSize.min,
+            children: <Widget>[
+              _photo != null
+                  ? Image.file(
+                      _photo!,
+                      height: 200,
+                      width: 200,
+                    )
+                  : FlutterLogo(
+                      size: 200.0,
+                    ),
+              ElevatedButton(
+                style: ElevatedButton.styleFrom(primary: Colors.white12),
+                onPressed: () {
+                  setState(() {
+                    imgFromGallery();
+                  });
+                },
+                child: const Text('Press to select Image'),
+              ),
+                  SizedBox(
+                    width: 20.0,
+                  ),
+                  DropDown(
+                    items: [
+                      'Mobiles, Tablets & Accessories',
+                      'Computers & Office Supplies',
+                      'TVs & Electronics',
+                      'mens Fashion',
+                      ' WoMens Fashion',
+                      'Kids Fashion',
+                      ' Health, Beauty & Perfumes',
+                      '  Supermarket',
+                      ' Furniture & Tools',
+                      ' Kitchen & Appliances',
+                      'Toys, Games & Baby',
+                      ' Sports',
+                      'Fitness & Outdoors',
+                      ' Books',
+                      ' Video Games',
+                      'Automotiv'
+                    ],
+                    hint: Text("Select department please "),
+                    icon: Icon(
+                      Icons.expand_more,
+                      color: Colors.blue,
+                    ),
+                      onChanged: (value){
+                        setState(() {
+                           dep = value.toString();
+                        });
+                      },
+                  ),
+              TextField(
+                  onChanged: (value) {
+                    type = value;
+                  },
+                  decoration: InputDecoration(
+                    hintText: 'Enter Type Of Item',
+                    contentPadding:
+                        EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
+                  )), //Location
+              TextField(
+                  onChanged: (value) {
+                    price = value;
+                  },
+                  keyboardType: TextInputType.number,
+                  decoration: InputDecoration(
+                    hintText: 'Enter Your Price by (EGY)',
+                    contentPadding:
+                        EdgeInsets.symmetric(vertical: 5.0, horizontal: 20.0),
+                  )), //Type
+              TextField(
+                  onChanged: (value) {
+                    location = value;
+                  },
+                  decoration: InputDecoration(
+                    hintText: 'Enter Your Location ',
+                    contentPadding:
+                        EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
+                  )), //Price
+
+              TextField(
+                  onChanged: (value) {
+                    phone_num = value;
+                  },
+                  keyboardType: TextInputType.number,
+                  decoration: InputDecoration(
+                    hintText: 'Enter Your Phone Number ',
+                    contentPadding:
+                        EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
+                  )), //Price
+              SizedBox(
+                height: 20.0,
+              ),
+              ElevatedButton(
+                style: ElevatedButton.styleFrom(primary: Colors.white12),
+                child: const Text('Push Now'),
+                onPressed: () => {
+                    if (location.isNotEmpty &&
+                        type.isNotEmpty &&
+                        price.isNotEmpty &&
+                        phone_num.isNotEmpty &&
+                        _photo != null) {
+                      current_date = DateTime.now(),
+                      db.collection("Post").doc().set({
+                        'Email': user?.email,
+                        'image': image_url,
+                        'image_name' :image_name,
+                        'location': location,
+                        'type': type,
+                        'department' : dep,
+                        'price': price,
+                        'phone': phone_num,
+                        'current_data': current_date
+                      }).onError((e, _) => print("Error writing document: $e")),
+                    } else {
+                      tost(' Enter all data '),
+                    },
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => main_screen())),
+
+                },
+              )
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}

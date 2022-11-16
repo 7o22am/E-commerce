@@ -70,73 +70,14 @@ class item extends StatelessWidget {
     return Card(
         child: Column(
           children: [
-            Image.network(image,height: 220.0,),
-            SizedBox(height: 14.0,),
-            Row(
-              children: [
-                Text(
-                  ' Data add : ',
-                  style: TextStyle(
-                      fontSize: 17.0,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.lightBlue),
-                ),
-                Text(
-                  '$current_data',
-                  maxLines: 1,
-                  style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold),
-                ),
-              ],
-            ),
-            Row(
-              children: [
-                Text(
-                  ' Type  : ',
-                  style: TextStyle(
-                      fontSize: 17.0,
 
-                      fontWeight: FontWeight.bold,
-                      color: Colors.lightBlue),
-                ),
-                Text(
-                  '$type',
-                  style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold),
-                ),
-              ],
-            ),
-            Row(
-              children: [
-                Text(
-                  ' Price  : ',
-                  style: TextStyle(
-                      fontSize: 17.0,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.lightBlue),
-                ),
-                Text(
-                  '$price',
-                  style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold),
-                ),
-              ],
-            ),
-            Row(
-              children: [
-                Text(
-                  ' Location  : ',
-                  style: TextStyle(
-                      fontSize: 17.0,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.lightBlue),
-                ),
-                Text(
-                  '$location',
-                  maxLines: 1,
-                  style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold),
-                ),
-              ],
-            ),
+            Listitem(type: '$type', price: '$price' ,time: '$current_data',
+                location: '$location' ,imagesee: '$image'),
 
             ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                    primary: Colors.white10
+                ),
                 onPressed: () {
                   db.collection(current_user).doc('$duc_id').delete();
                   Scaffold.of(context).showSnackBar(SnackBar(
@@ -168,7 +109,7 @@ class item extends StatelessWidget {
                       ),
                     ),
                     Icon(
-                      Icons.shopping_basket_outlined,
+                      Icons.delete,
                     )
                   ],
                 )),
@@ -177,6 +118,9 @@ class item extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                        primary: Colors.white10
+                    ),
                     onPressed: () {
 
                     },
@@ -195,6 +139,9 @@ class item extends StatelessWidget {
                       ],
                     )),
                 ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                        primary: Colors.white10
+                    ),
                     onPressed: () {
                       final Uri _url = Uri.parse('tel:$phone_num');
                       launchUrl(_url);
@@ -224,5 +171,43 @@ class item extends StatelessWidget {
             )
           ],
         ));
+  }
+}
+class Listitem extends StatelessWidget {
+  Listitem ({required this.type ,required this.time,
+    required this.price ,required this.location,
+    required this.imagesee});
+  String type , price , location ,time ,imagesee;
+  @override
+  Widget build(BuildContext context) {
+    return ListTile(
+
+      title: Text (type   , style: TextStyle(
+          fontSize: 17.0,
+          fontWeight: FontWeight.bold,
+          color: Colors.lightBlue),
+      ),
+      subtitle: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            '$price',
+            style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),
+          ),
+          Text(
+            time,
+            style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),
+          ),
+          Text(
+            location,
+            style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),
+          ),
+        ],
+      ),
+      horizontalTitleGap: 16.0,
+      leading: Image.network('$imagesee',height: 10000.0),
+
+    );
   }
 }

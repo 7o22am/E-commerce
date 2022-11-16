@@ -19,8 +19,8 @@ class _welcomepageState extends State<welcomepage> {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
-            Row(
-              children: <Widget>[
+
+                Image.asset('image/ez.gif'),
                  Text(
                   '  E - Commerce ',
                   style: TextStyle(
@@ -28,8 +28,7 @@ class _welcomepageState extends State<welcomepage> {
                     fontWeight: FontWeight.w900,
                   ),
                 ),
-              ],
-            ),
+
             SizedBox(
               height: 48.0,
             ),
