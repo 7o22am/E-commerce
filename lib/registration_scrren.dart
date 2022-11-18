@@ -212,6 +212,7 @@ class _registrationState extends State<registration> {
                           'email': email,
                           'city': city,
                           'phone_num': phone_num,
+                          'image':'https://firebasestorage.googleapis.com/v0/b/e-commerce-98666.appspot.com/o/ks.gif?alt=media&token=09c054d1-3ef9-4aa6-a0c6-0b5a1ac5851b'
                         }).onError(
                                 (e, _) => print("Error writing document: $e"));
                       }

@@ -23,14 +23,14 @@ class _shopState extends State<shop> {
             Navigator.push(context,
                 MaterialPageRoute(builder: (context) => main_screen()));
           },
-          icon: Icon(Icons.arrow_back_ios,color: Colors.black,),
+          icon: Icon(Icons.arrow_back_ios,color: Colors.white,),
         ),
-        title: Center(child: Text('E-commerce' ,style: TextStyle(color: Colors.black),)),
+        title: Center(child: Text('E-commerce' ,style: TextStyle(color: Colors.white),)),
         actions: [IconButton(onPressed: () {
 
         },
-            icon: Icon(Icons.info,size: 25,color: Colors.black,))],
-        backgroundColor: Colors.black12,
+            icon: Icon(Icons.info,size: 25,color: Colors.white,))],
+        backgroundColor: Color(0x0FF0A0E21),
       ),
       body: shopRoot(),
     );

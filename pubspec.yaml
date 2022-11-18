@@ -83,6 +83,10 @@ flutter:
     - image/regis.gif
     - image/logina.gif
     - image/log_in_image.png
+    - image/asd.gif
+    - image/person.png
+    - image/ks.gif
+    - image/ks.gif
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

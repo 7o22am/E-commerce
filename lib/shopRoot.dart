@@ -76,7 +76,7 @@ class item extends StatelessWidget {
 
             ElevatedButton(
                 style: ElevatedButton.styleFrom(
-                    primary: Colors.white10
+                    primary:  Color(0xFF111328)
                 ),
                 onPressed: () {
                   db.collection(current_user).doc('$duc_id').delete();
@@ -119,7 +119,7 @@ class item extends StatelessWidget {
               children: [
                 ElevatedButton(
                     style: ElevatedButton.styleFrom(
-                        primary: Colors.white10
+                        primary:  Color(0xFF111328)
                     ),
                     onPressed: () {
 
@@ -140,7 +140,7 @@ class item extends StatelessWidget {
                     )),
                 ElevatedButton(
                     style: ElevatedButton.styleFrom(
-                        primary: Colors.white10
+                        primary:  Color(0xFF111328)
                     ),
                     onPressed: () {
                       final Uri _url = Uri.parse('tel:$phone_num');

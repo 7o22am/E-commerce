@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:ffi';
 import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -39,14 +40,14 @@ FirebaseFirestore db = FirebaseFirestore.instance;
 final _auth = FirebaseAuth.instance;
 firebase_storage.FirebaseStorage storage =
     firebase_storage.FirebaseStorage.instance;
-File? _photo;
+
 
 class _push_postsState extends State<push_posts> {
   void initState() {
     super.initState();
 
   }
-
+  File? _photo;
   final ImagePicker _picker = ImagePicker();
   Future imgFromGallery() async {
     final pickedFile = await _picker.pickImage(source: ImageSource.gallery);
@@ -59,6 +60,9 @@ class _push_postsState extends State<push_posts> {
     });
     image_name =pickedFile?.name as String;
     uploadFile();
+    Timer(Duration(seconds: 2), () {
+      print("Yeah, this line is printed immediately");
+    });
   }
 
   Future uploadFile() async {
@@ -103,7 +107,7 @@ class _push_postsState extends State<push_posts> {
                       size: 200.0,
                     ),
               ElevatedButton(
-                style: ElevatedButton.styleFrom(primary: Colors.white12),
+                style: ElevatedButton.styleFrom(primary: Color(0xFF111328)),
                 onPressed: () {
                   setState(() {
                     imgFromGallery();
@@ -187,7 +191,7 @@ class _push_postsState extends State<push_posts> {
                 height: 20.0,
               ),
               ElevatedButton(
-                style: ElevatedButton.styleFrom(primary: Colors.white12),
+                style: ElevatedButton.styleFrom(primary: Color(0xFF111328)),
                 child: const Text('Push Now'),
                 onPressed: () => {
                     if (location.isNotEmpty &&

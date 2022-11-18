@@ -30,6 +30,8 @@ class _itemRootState extends State<itemRoot> {
         }
 
         return ListView(
+          physics: BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
+            shrinkWrap: true,
           children: snapshot.data!.docs
               .map((DocumentSnapshot document) {
             Map<String, dynamic> data =
@@ -72,7 +74,7 @@ String get_image_name(String image_path){
                 location: '$location' ,imagesee: '$image'),
             ElevatedButton(
               style: ElevatedButton.styleFrom(
-                primary: Colors.white10
+                primary:  Color(0xFF111328)
               ),
 
                 onPressed: () {
@@ -120,7 +122,7 @@ String get_image_name(String image_path){
               children: [
                 ElevatedButton(
                     style: ElevatedButton.styleFrom(
-                        primary: Colors.white10
+                        primary:  Color(0xFF111328)
                     ),
                     onPressed: () {
 
@@ -142,10 +144,10 @@ String get_image_name(String image_path){
                     )),
                 ElevatedButton(
                     style: ElevatedButton.styleFrom(
-                        primary: Colors.white10
+                        primary: Color(0xFF111328)
                     ),
                     onPressed: () {
-                      final Uri _url = Uri.parse('tel:$phone_num');
+                     final Uri _url = Uri.parse('tel:$phone_num');
                       launchUrl(_url);
                     },
                     child: Row(

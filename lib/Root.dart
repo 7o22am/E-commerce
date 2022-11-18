@@ -38,24 +38,24 @@ class _main_screenState extends State<main_screen> {
             Navigator.push(context,
                 MaterialPageRoute(builder: (context) => main_screen()));
           },
-          icon: Icon(Icons.arrow_back_ios,color: Colors.black,),
+          icon: Icon(Icons.arrow_back_ios,color: Colors.white,),
         ),
-        title: Text('E-commerce' ,style: TextStyle(color: Colors.black),),
+        title: Text('E-commerce' ,style: TextStyle(color: Colors.white),),
         actions: [
           IconButton(onPressed: () {
           Navigator.push(context,
               MaterialPageRoute(builder: (context) => shop()));
         },
-            icon: Icon(Icons.shopping_cart_outlined,size: 25,color: Colors.black,),
+            icon: Icon(Icons.shopping_cart_outlined,size: 25,color: Colors.white,),
         ),
           IconButton(onPressed: () {
             Navigator.push(context,
                 MaterialPageRoute(builder: (context) => welcomepage()));
           },
-            icon: Icon(Icons.logout,size: 25,color: Colors.black,),
+            icon: Icon(Icons.logout,size: 25,color: Colors.white,),
           )
         ],
-        backgroundColor: Colors.black12,
+        backgroundColor: Color(0x0FF0A0E21),
       ),
       bottomNavigationBar: DotNavigationBar(
         backgroundColor: Colors.black12,
@@ -82,7 +82,7 @@ class _main_screenState extends State<main_screen> {
           ),
         ],
         currentIndex: currentpage,
-        selectedItemColor: Colors.redAccent,
+        selectedItemColor: Color(0xFF111328),
         onTap: _onItemTapped,
       ),
       extendBody:  true,

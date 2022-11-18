@@ -24,7 +24,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: ThemeData.light().copyWith(
           primaryColor: Colors.lightBlue, backgroundColor: Colors.cyanAccent),
-      home: main_screen(),
+      home: welcomepage(),
     );
   }
 }

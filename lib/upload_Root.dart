@@ -35,7 +35,7 @@ class _uploadRootState extends State<uploadRoot> {
         }
 
         return ListView(
-
+          physics: BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
           children: snapshot.data!.docs
               .map((DocumentSnapshot document) {
             Map<String, dynamic> data =
@@ -80,7 +80,7 @@ class item extends StatelessWidget {
 
             ElevatedButton(
                 style: ElevatedButton.styleFrom(
-                    primary: Colors.white10
+                    primary: Color(0xFF111328)
                 ),
                 onPressed: () async {
                   db.collection('Post').doc('$duc_id').delete();
