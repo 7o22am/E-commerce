@@ -48,7 +48,7 @@ class _registrationState extends State<registration> {
               ),   SizedBox(
                 height: 30.0,
               ),
-              Center(child: Text('Register now ',style: TextStyle(fontSize: 40 ,color: Colors.lightBlue ,),) ),
+              Center(child: Text('Register now !',style: TextStyle(fontSize: 40 ,color: Colors.lightBlue ,),) ),
               SizedBox(
                 height: 30.0,
               ),
@@ -224,18 +224,18 @@ class _registrationState extends State<registration> {
                     height: 42.0,
                     child: Text(
                       'Register',
-                      style: TextStyle(color: Colors.white),
+                      style: TextStyle(fontSize: 24.0 , color: Colors.white),
                     ),
                   ),
                 ),
               ),
               Row(
                 children: [
-                  Text('                   have account ?') ,
+                  Text('               have account ?', style: TextStyle(color: Colors.black , fontSize: 18.0) ) ,
                   TextButton(onPressed: (){
                     Navigator.push(context,
                         MaterialPageRoute(builder: (context) => login()));
-                  }, child: Text ('log-in'))
+                  }, child: Text ('log-in', style: TextStyle(color: Colors.blue , fontSize: 18.0) ))
                 ],
               )
             ],

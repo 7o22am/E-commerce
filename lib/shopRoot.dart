@@ -105,7 +105,7 @@ class item extends StatelessWidget {
                     Text(
                       'Remove     ',
                       style: TextStyle(
-                        fontSize: 16.0,
+                          fontSize: 20.0,
                       ),
                     ),
                     Icon(
@@ -128,9 +128,9 @@ class item extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Text(
-                          '     Messanger    ',
+                          '    Messenger     ',
                           style: TextStyle(
-                            fontSize: 16.0,
+                              fontSize: 18.0,
                           ),
                         ),
                         Icon(
@@ -150,9 +150,9 @@ class item extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Text(
-                          '             Call   ',
+                          '       Call  ',
                           style: TextStyle(
-                            fontSize: 16.0,
+                              fontSize: 18.0,
                           ),
                         ),
                         Icon(
@@ -160,9 +160,9 @@ class item extends StatelessWidget {
 
                         ),
                         Text(
-                          '            ',
+                          '       ',
                           style: TextStyle(
-                            fontSize: 16.0,
+                              fontSize: 18.0,
                           ),
                         ),
                       ],
@@ -183,7 +183,7 @@ class Listitem extends StatelessWidget {
     return ListTile(
 
       title: Text (type   , style: TextStyle(
-          fontSize: 17.0,
+          fontSize: 25.0,
           fontWeight: FontWeight.bold,
           color: Colors.lightBlue),
       ),

@@ -139,18 +139,19 @@ class _loginState extends State<login> {
                     minWidth: 200.0,
                     height: 42.0,
                     child: Text(
-                      'Log In',
+                      'Log In',style: TextStyle(color: Colors.white , fontSize: 25.0),
                     ),
                   ),
                 ),
               ),
               Row(
                 children: [
-                  Text('                 Dont have account ?') ,
+                  Text('          Dont have account ?',
+                      style: TextStyle(color: Colors.black , fontSize: 18.0)) ,
                   TextButton(onPressed: (){
                     Navigator.push(context,
                         MaterialPageRoute(builder: (context) => registration()));
-                  }, child: Text ('Sign-in'))
+                  }, child: Text (' Sign-in', style: TextStyle(color: Colors.blue , fontSize: 18.0)))
                 ],
               ),
             ],

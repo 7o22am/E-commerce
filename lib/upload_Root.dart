@@ -113,7 +113,7 @@ class item extends StatelessWidget {
                     Text(
                       ' Stop displaying it on the home page ',
                       style: TextStyle(
-                        fontSize: 16.0,
+                        fontSize: 20.0,
                       ),
                     ),
 

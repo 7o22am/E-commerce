@@ -40,7 +40,9 @@ class _main_screenState extends State<main_screen> {
           },
           icon: Icon(Icons.arrow_back_ios,color: Colors.white,),
         ),
-        title: Text('E-commerce' ,style: TextStyle(color: Colors.white),),
+        title: Text('E-commerce' ,style: TextStyle(color: Colors.white,
+            fontFamily: 'new2' ,fontSize: 40.0
+        ),),
         actions: [
           IconButton(onPressed: () {
           Navigator.push(context,

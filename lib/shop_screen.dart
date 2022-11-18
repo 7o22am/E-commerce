@@ -25,7 +25,9 @@ class _shopState extends State<shop> {
           },
           icon: Icon(Icons.arrow_back_ios,color: Colors.white,),
         ),
-        title: Center(child: Text('E-commerce' ,style: TextStyle(color: Colors.white),)),
+        title: Center(child: Text('E-commerce' ,style: TextStyle(color: Colors.white,
+            fontSize: 40.0,
+            fontFamily: 'new2'),)),
         actions: [IconButton(onPressed: () {
 
         },

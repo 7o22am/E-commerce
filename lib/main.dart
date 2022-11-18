@@ -22,8 +22,14 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      theme: ThemeData.light().copyWith(
-          primaryColor: Colors.lightBlue, backgroundColor: Colors.cyanAccent),
+
+
+      theme: ThemeData(
+          fontFamily: 'new2',
+
+          primaryColor: Colors.lightBlue
+      ),
+
       home: welcomepage(),
     );
   }

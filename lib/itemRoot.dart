@@ -107,7 +107,8 @@ String get_image_name(String image_path){
                     Text(
                       'Add TO Car   ',
                       style: TextStyle(
-                        fontSize: 16.0,
+                        fontSize: 20.0,
+                          fontFamily: 'new2'
                       ),
                     ),
                     Icon(
@@ -131,9 +132,10 @@ String get_image_name(String image_path){
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Text(
-                          '     Messanger    ',
+                          '    Messenger     ',
                           style: TextStyle(
-                            fontSize: 16.0,
+                            fontSize: 18.0,
+                              fontFamily: 'new2'
 
                           ),
                         ),
@@ -154,9 +156,10 @@ String get_image_name(String image_path){
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Text(
-                          '             Call   ',
+                          '       Call ',
                           style: TextStyle(
-                            fontSize: 16.0,
+                            fontSize: 18.0,
+                              fontFamily: 'new2'
                           ),
                         ),
                         Icon(
@@ -164,7 +167,7 @@ String get_image_name(String image_path){
 
                         ),
                         Text(
-                          '            ',
+                          '       ',
                           style: TextStyle(
                             fontSize: 16.0,
                           ),
@@ -187,7 +190,7 @@ class Listitem extends StatelessWidget {
     return ListTile(
 
       title: Text (type   , style: TextStyle(
-          fontSize: 17.0,
+          fontSize: 25.0,
           fontWeight: FontWeight.bold,
           color: Colors.lightBlue),
       ),

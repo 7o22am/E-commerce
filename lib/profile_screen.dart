@@ -255,7 +255,8 @@ class _profileState extends State<profile> {
                       height: 42.0,
                       child: Text(
                         'Updata !',
-                        style: TextStyle(color: Colors.white),
+
+                        style: TextStyle(fontSize: 24.0,color: Colors.white),
                       ),
                     ),
                   ),

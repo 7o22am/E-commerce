@@ -89,11 +89,8 @@ class _push_postsState extends State<push_posts> {
 
   Widget build(BuildContext context) {
     return SingleChildScrollView(
-      child: Container(
-        height: 600,
-        color: Colors.white,
-        child: Center(
-          child: Column(
+      physics: BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
+      child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             mainAxisSize: MainAxisSize.min,
             children: <Widget>[
@@ -106,6 +103,7 @@ class _push_postsState extends State<push_posts> {
                   : FlutterLogo(
                       size: 200.0,
                     ),
+              SizedBox(height: 25.0,),
               ElevatedButton(
                 style: ElevatedButton.styleFrom(primary: Color(0xFF111328)),
                 onPressed: () {
@@ -113,10 +111,11 @@ class _push_postsState extends State<push_posts> {
                     imgFromGallery();
                   });
                 },
-                child: const Text('Press to select Image'),
+                child: const Text(' Press to select Image ',
+    style: TextStyle(color: Colors.white , fontSize: 18.0) ,),
               ),
                   SizedBox(
-                    width: 20.0,
+                    height: 20.0,
                   ),
                   DropDown(
                     items: [
@@ -148,6 +147,9 @@ class _push_postsState extends State<push_posts> {
                         });
                       },
                   ),
+              SizedBox(
+                height: 20.0,
+              ),
               TextField(
                   onChanged: (value) {
                     type = value;
@@ -192,7 +194,8 @@ class _push_postsState extends State<push_posts> {
               ),
               ElevatedButton(
                 style: ElevatedButton.styleFrom(primary: Color(0xFF111328)),
-                child: const Text('Push Now'),
+                child: const Text('  Push Now   ',
+    style: TextStyle(color: Colors.white , fontSize: 18.0) ),
                 onPressed: () => {
                     if (location.isNotEmpty &&
                         type.isNotEmpty &&
@@ -218,11 +221,14 @@ class _push_postsState extends State<push_posts> {
                         MaterialPageRoute(builder: (context) => main_screen())),
 
                 },
-              )
+              ),
+              SizedBox(
+                height: 100.0,
+              ),
             ],
           ),
-        ),
-      ),
+
+
     );
   }
 }

@@ -24,7 +24,7 @@ class _welcomepageState extends State<welcomepage> {
                  Text(
                   '  E - Commerce ',
                   style: TextStyle(
-                    fontSize: 45.0,
+                    fontSize: 40.0,
                     fontWeight: FontWeight.w900,
                   ),
                 ),
@@ -47,6 +47,7 @@ class _welcomepageState extends State<welcomepage> {
                   height: 42.0,
                   child: Text(
                     'Log In',
+                    style: TextStyle(fontSize: 24.0),
                   ),
                 ),
               ),
@@ -66,6 +67,7 @@ class _welcomepageState extends State<welcomepage> {
                   height: 42.0,
                   child: Text(
                     'Register',
+                    style: TextStyle(fontSize: 24.0),
                   ),
                 ),
               ),
