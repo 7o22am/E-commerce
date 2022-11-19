@@ -94,6 +94,7 @@ class _push_postsState extends State<push_posts> {
             mainAxisAlignment: MainAxisAlignment.center,
             mainAxisSize: MainAxisSize.min,
             children: <Widget>[
+              SizedBox(height: 30.0,),
               _photo != null
                   ? Image.file(
                       _photo!,
@@ -103,7 +104,7 @@ class _push_postsState extends State<push_posts> {
                   : FlutterLogo(
                       size: 200.0,
                     ),
-              SizedBox(height: 25.0,),
+              SizedBox(height: 30.0,),
               ElevatedButton(
                 style: ElevatedButton.styleFrom(primary: Color(0xFF111328)),
                 onPressed: () {
@@ -115,7 +116,7 @@ class _push_postsState extends State<push_posts> {
     style: TextStyle(color: Colors.white , fontSize: 18.0) ,),
               ),
                   SizedBox(
-                    height: 20.0,
+                    height: 25.0,
                   ),
                   DropDown(
                     items: [
@@ -148,7 +149,7 @@ class _push_postsState extends State<push_posts> {
                       },
                   ),
               SizedBox(
-                height: 20.0,
+                height: 25.0,
               ),
               TextField(
                   onChanged: (value) {
@@ -190,7 +191,7 @@ class _push_postsState extends State<push_posts> {
                         EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
                   )), //Price
               SizedBox(
-                height: 20.0,
+                height: 35.0,
               ),
               ElevatedButton(
                 style: ElevatedButton.styleFrom(primary: Color(0xFF111328)),

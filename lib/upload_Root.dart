@@ -1,12 +1,15 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:e_commerce/Push_posts.dart';
 import 'package:e_commerce/registration_scrren.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
+import 'package:flutter_slidable/flutter_slidable.dart';
 import 'itemRoot.dart';
 
 bool buy_it = false;
+FirebaseFirestore db = FirebaseFirestore.instance;
 class uploadRoot extends StatefulWidget {
   @override
   _uploadRootState createState() => _uploadRootState();
@@ -41,7 +44,7 @@ class _uploadRootState extends State<uploadRoot> {
             Map<String, dynamic> data =
             document.data()! as Map<String, dynamic>;
             if(data['Email'] == '${user?.email}'){
-              return item(location: data['location'], type: data['type'],
+              return item2(location: data['location'], type: data['type'],
                 price: data['price'], image: data['image'],duc_id: document.id,
                 email: data['Email'], current_user: '${user?.email}',
                 current_data: '$current_date', image_name: data['image_name'] ,
@@ -58,27 +61,71 @@ class _uploadRootState extends State<uploadRoot> {
     );
   }
 }
-class item extends StatelessWidget {
-  item({required this.email ,required this.type , required this.price,
+class item2 extends StatelessWidget {
+  item2({required this.email ,required this.type , required this.price,
     required this.location, required this.image,
     required this.duc_id, required this.current_user,required this.image_name,
     required this.current_data});
   final String email ,type , price , location ,
       image ,duc_id ,current_user , current_data ,image_name ;
-  String get_image_name(String image_path){
-    String s = image_path;
-    List ss =s.split('/');
-    return ss.last;
-  }
+
   @override
   Widget build(BuildContext context) {
     return Card(
         child: Column(
           children: [
-            Listitem(type: '$type', price: '$price' ,time: '$current_data',
-                location: '$location' ,imagesee: '$image'),
+            Slidable(
+              endActionPane: const ActionPane(
+                motion: ScrollMotion(),
+                children: [
+                  SlidableAction(
+                    flex: 1,
+                    onPressed:null,
+                    backgroundColor: Colors.redAccent,
+                    foregroundColor: Colors.black,
+                    icon: Icons.delete,
+                    label: 'Delete',
+                  ),
 
-            ElevatedButton(
+                ],
+              ),
+
+              child: ListTile(
+
+                title: Text (type   , style: TextStyle(
+                    fontSize: 25.0,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.lightBlue),
+                ),
+                subtitle: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      '$price',
+                      style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),
+                    ),
+                    Text(
+                      current_data,
+                      style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),
+                    ),
+                    Text(
+                      location,
+                      style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),
+                    ),
+                  ],
+                ),
+                trailing:Icon(Icons.arrow_forward_ios_outlined),
+                horizontalTitleGap: 16.0,
+                leading: Image.network('$image'),
+
+
+              ),
+
+
+            ),
+
+      /*      ElevatedButton(
                 style: ElevatedButton.styleFrom(
                     primary: Color(0xFF111328)
                 ),
@@ -88,7 +135,7 @@ class item extends StatelessWidget {
                   final desertRef = storageRef.child('file/');
                   await desertRef.delete();
 
-                  Scaffold.of(context).showSnackBar(SnackBar(
+                /*  Scaffold.of(context).showSnackBar(SnackBar(
                     content: const Text(' Deleted successfully '),
                     duration: const Duration(seconds: 3),
                     action: SnackBarAction(
@@ -105,7 +152,7 @@ class item extends StatelessWidget {
                                 (e, _) => print("Error writing document: $e"));
                       },
                     ),
-                  ));
+                  ));*/
                 },
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -118,8 +165,9 @@ class item extends StatelessWidget {
                     ),
 
                   ],
-                ))
+                ))*/
           ],
         ));
   }
 }
+

@@ -6,8 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:e_commerce/itemRoot.dart';
 import 'Root.dart';
 import 'firebase_options.dart';
-import 'welcome_screen.dart';
-
+import 'new_welcome.dart';
 void main() async {
   // These two lines
   WidgetsFlutterBinding.ensureInitialized();
@@ -26,11 +25,10 @@ class MyApp extends StatelessWidget {
 
       theme: ThemeData(
           fontFamily: 'new2',
-
           primaryColor: Colors.lightBlue
       ),
 
-      home: welcomepage(),
+      home: welcome_page(),
     );
   }
 }

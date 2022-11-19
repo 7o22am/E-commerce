@@ -160,7 +160,7 @@ class item extends StatelessWidget {
 
                         ),
                         Text(
-                          '       ',
+                          '    ',
                           style: TextStyle(
                               fontSize: 18.0,
                           ),

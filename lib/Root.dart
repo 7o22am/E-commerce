@@ -1,11 +1,11 @@
 import 'package:dot_navigation_bar/dot_navigation_bar.dart';
 import 'package:e_commerce/Home_screen.dart';
 import 'package:e_commerce/itemRoot.dart';
+import 'package:e_commerce/new_welcome.dart';
 import 'package:e_commerce/profile_screen.dart';
 import 'package:e_commerce/search_screen.dart';
 import 'package:e_commerce/shop_screen.dart';
 import 'package:e_commerce/upload_screen.dart';
-import 'package:e_commerce/welcome_screen.dart';
 import 'package:flutter/material.dart';
 
 import 'Push_posts.dart';
@@ -41,7 +41,7 @@ class _main_screenState extends State<main_screen> {
           icon: Icon(Icons.arrow_back_ios,color: Colors.white,),
         ),
         title: Text('E-commerce' ,style: TextStyle(color: Colors.white,
-            fontFamily: 'new2' ,fontSize: 40.0
+            fontFamily: 'new2' ,fontSize: 30.0
         ),),
         actions: [
           IconButton(onPressed: () {
@@ -52,7 +52,7 @@ class _main_screenState extends State<main_screen> {
         ),
           IconButton(onPressed: () {
             Navigator.push(context,
-                MaterialPageRoute(builder: (context) => welcomepage()));
+                MaterialPageRoute(builder: (context) => welcome_page()));
           },
             icon: Icon(Icons.logout,size: 25,color: Colors.white,),
           )
