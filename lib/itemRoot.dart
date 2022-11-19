@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:e_commerce/Push_posts.dart';
-import 'package:e_commerce/registration_scrren.dart';
+import 'package:e_commerce/registration_screen.dart';
 import 'package:e_commerce/shop_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -258,6 +258,32 @@ class Listitem extends StatelessWidget {
                          )
                        ],
                      )),
+                 ElevatedButton(
+                     style: ElevatedButton.styleFrom(
+                         primary:  Color(0xFF111328)
+                     ),
+
+                     onPressed: () {
+
+
+                     },
+                     child: Row(
+                       mainAxisAlignment: MainAxisAlignment.center,
+
+                       children: [
+                         Text(
+                           'Order now   ',
+                           style: TextStyle(
+                               fontSize: 20.0,
+                               fontFamily: 'new2'
+                           ),
+                         ),
+                         Icon(
+                           Icons.car_crash_outlined,
+
+                         )
+                       ],
+                     )),
                  Row(
                    mainAxisAlignment: MainAxisAlignment.spaceAround,
                    crossAxisAlignment: CrossAxisAlignment.center,
@@ -273,7 +299,7 @@ class Listitem extends StatelessWidget {
                            mainAxisAlignment: MainAxisAlignment.center,
                            children: [
                              Text(
-                               '    Messenger     ',
+                               '    Messenger    ',
                                style: TextStyle(
                                    fontSize: 18.0,
                                    fontFamily: 'new2'
@@ -297,7 +323,7 @@ class Listitem extends StatelessWidget {
                            mainAxisAlignment: MainAxisAlignment.center,
                            children: [
                              Text(
-                               '       Call ',
+                               '       Call      ',
                                style: TextStyle(
                                    fontSize: 18.0,
                                    fontFamily: 'new2'

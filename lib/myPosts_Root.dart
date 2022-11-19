@@ -1,12 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:e_commerce/Push_posts.dart';
-import 'package:e_commerce/registration_scrren.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
+import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
-import 'itemRoot.dart';
+
 
 bool buy_it = false;
 FirebaseFirestore db = FirebaseFirestore.instance;
@@ -75,12 +74,19 @@ class item2 extends StatelessWidget {
         child: Column(
           children: [
             Slidable(
-              endActionPane: const ActionPane(
+              endActionPane:  ActionPane(
                 motion: ScrollMotion(),
                 children: [
                   SlidableAction(
                     flex: 1,
-                    onPressed:null,
+                    onPressed:(BuildContext context) async {
+
+                           db.collection('Post').doc('$duc_id').delete();
+                         final storageRef = FirebaseStorage.instance.ref(image_name);
+                         final desertRef = storageRef.child('file/');
+                         await desertRef.delete();
+
+                    },
                     backgroundColor: Colors.redAccent,
                     foregroundColor: Colors.black,
                     icon: Icons.delete,

@@ -1,12 +1,12 @@
 import 'package:e_commerce/login_screen.dart';
-import 'package:e_commerce/registration_scrren.dart';
+import 'package:e_commerce/registration_screen.dart';
 import 'package:firebase_app_check/firebase_app_check.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:e_commerce/itemRoot.dart';
 import 'Root.dart';
 import 'firebase_options.dart';
-import 'new_welcome.dart';
+import 'welcome_screen.dart';
 void main() async {
   // These two lines
   WidgetsFlutterBinding.ensureInitialized();

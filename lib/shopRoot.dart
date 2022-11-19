@@ -1,5 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:e_commerce/registration_scrren.dart';
+import 'package:e_commerce/registration_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -82,7 +82,7 @@ class item extends StatelessWidget {
                   db.collection(current_user).doc('$duc_id').delete();
                   Scaffold.of(context).showSnackBar(SnackBar(
                     content: const Text(' Deleted successfully '),
-                    duration: const Duration(seconds: 3),
+                    duration: const Duration(seconds: 2),
                     action: SnackBarAction(
                       label: 'back ?',
                       onPressed: () {
@@ -92,6 +92,7 @@ class item extends StatelessWidget {
                           'type': type,
                           'price': price,
                           'location': location,
+                          'phone':phone_num,
                           'current_data': current_data
                         }).onError(
                                 (e, _) => print("Error writing document: $e"));
@@ -110,6 +111,32 @@ class item extends StatelessWidget {
                     ),
                     Icon(
                       Icons.delete,
+                    )
+                  ],
+                )),
+            ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                    primary:  Color(0xFF111328)
+                ),
+
+                onPressed: () {
+
+
+                },
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+
+                  children: [
+                    Text(
+                      'Order now   ',
+                      style: TextStyle(
+                          fontSize: 20.0,
+                          fontFamily: 'new2'
+                      ),
+                    ),
+                    Icon(
+                      Icons.car_crash_outlined,
+
                     )
                   ],
                 )),

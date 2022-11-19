@@ -1,4 +1,4 @@
-import 'package:e_commerce/registration_scrren.dart';
+import 'package:e_commerce/registration_screen.dart';
 import 'package:flutter/material.dart';
 
 import 'login_screen.dart';

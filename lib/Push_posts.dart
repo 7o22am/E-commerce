@@ -13,7 +13,7 @@ import 'package:path/path.dart';
 import 'Home_screen.dart';
 import 'Root.dart';
 
-late String location = 'null', price = 'null', type = 'null',
+late String location = 'null', price = 'null', type = 'null',count='f',
     phone_num = '',  dep,image_url='',image_name='';
 bool buy_it = false;
 
@@ -159,7 +159,17 @@ class _push_postsState extends State<push_posts> {
                     hintText: 'Enter Type Of Item',
                     contentPadding:
                         EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
-                  )), //Location
+                  )),
+              TextField(
+                  onChanged: (value) {
+                    count = value;
+                  },
+                  keyboardType: TextInputType.number,
+                  decoration: InputDecoration(
+                    hintText: 'Enter count ',
+                    contentPadding:
+                    EdgeInsets.symmetric(vertical: 5.0, horizontal: 20.0),
+                  )), //count
               TextField(
                   onChanged: (value) {
                     price = value;

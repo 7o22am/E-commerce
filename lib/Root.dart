@@ -1,11 +1,11 @@
 import 'package:dot_navigation_bar/dot_navigation_bar.dart';
 import 'package:e_commerce/Home_screen.dart';
 import 'package:e_commerce/itemRoot.dart';
-import 'package:e_commerce/new_welcome.dart';
+import 'package:e_commerce/welcome_screen.dart';
 import 'package:e_commerce/profile_screen.dart';
 import 'package:e_commerce/search_screen.dart';
 import 'package:e_commerce/shop_screen.dart';
-import 'package:e_commerce/upload_screen.dart';
+import 'package:e_commerce/my_posts.dart';
 import 'package:flutter/material.dart';
 
 import 'Push_posts.dart';
