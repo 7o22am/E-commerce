@@ -4,12 +4,14 @@ import 'package:e_commerce/registration_screen.dart';
 import 'package:e_commerce/shop_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 bool buy_it = false;
 String select = 'All products';
 FirebaseFirestore db = FirebaseFirestore.instance;
-List<String> type_store = ['All products',
+List<String> type_store = [
+  'All products',
   'mens Fashion',
   'Mobiles, Tablets & Accessories',
   'Computers & Office Supplies',
@@ -54,22 +56,70 @@ class itemRoot extends StatefulWidget {
 }
 
 class _itemRootState extends State<itemRoot> {
-
   FirebaseFirestore db = FirebaseFirestore.instance;
+  CollectionReference users = FirebaseFirestore.instance.collection('user_Inf');
   @override
   final user = FirebaseAuth.instance.currentUser;
   DateTime current_date = DateTime.now();
-
+  final berlinWallFell = DateTime.utc(1989, 11, 9);
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       child: Column(children: [
         Column(
           children: [
-            SizedBox(
-              height: 20.0,
-            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                SizedBox(
+                  height: 50.0,
+                ),
+                Container(
 
+                  child: FutureBuilder<DocumentSnapshot>(
+                    future: users.doc('${(user?.email)}').get(),
+                    builder: (BuildContext context,
+                        AsyncSnapshot<DocumentSnapshot> snapshot) {
+                      if (snapshot.hasError) {
+                        return Text("Something went wrong");
+                      }
+                      if (snapshot.hasData && !snapshot.data!.exists) {
+                        return Text("Document does not exist");
+                      }
+                      if (snapshot.connectionState == ConnectionState.done) {
+                        Map<String, dynamic> data =
+                            snapshot.data!.data() as Map<String, dynamic>;
+                        return Container(
+                          alignment: Alignment.topLeft,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.all(Radius.circular(10)),
+                            color: Color(0x0FF0A0E21),
+                          ),
+                          child: Text(
+                            '   Hi,  ${data['name']}     ',
+                            style: TextStyle(fontSize: 20, color: Colors.white),
+                          ),
+                        );
+                      }
+
+                      return Text("loading");
+                    },
+                  ),
+                ),
+                CircleAvatar(
+                  backgroundImage: AssetImage('image/new.gif'),
+                  minRadius: 40.0,
+                ),
+              ],
+            ),
+            SizedBox(
+              height: 10.0,
+            ),
             TextField(
+              onChanged: (value) {
+                setState(() {
+                  select = value;
+                });
+              },
               decoration: InputDecoration(
                 prefixIcon: Icon(Icons.search),
                 hintText: ' Search by Type of Items ... ',
@@ -90,13 +140,10 @@ class _itemRootState extends State<itemRoot> {
                 ),
               ),
             ),
-            SizedBox(
-              height: 17.0,
-            ),
+
           ],
         ), //search
         Padding(padding: const EdgeInsets.all(8.0), child: suggest()), //store
-
       ]),
     );
   }
@@ -254,6 +301,14 @@ class Listitem extends StatelessWidget {
                             ],
                           ),
                           horizontalTitleGap: 16.0,
+                          trailing: IconButton(
+                            icon: new Icon(
+                              Icons.share,
+                              size: 35,
+                            ),
+                            onPressed: () {
+                            },
+                          ),
                           leading: Image.network('$imagesee', height: 10000.0),
                         ),
                         ElevatedButton(
@@ -380,7 +435,7 @@ class _suggestState extends State<suggest> {
   @override
   Widget build(BuildContext context) {
     final Stream<QuerySnapshot> _usersStream =
-    FirebaseFirestore.instance.collection('Post').snapshots();
+        FirebaseFirestore.instance.collection('Post').snapshots();
     return Column(
       children: [
         SingleChildScrollView(
@@ -389,14 +444,13 @@ class _suggestState extends State<suggest> {
             children: [
               for (int i = 0; i < type_store.length; i++)
                 GestureDetector(
-                  child: Expanded(
-                    flex: 1,
+                  child: Padding(
+                    padding: EdgeInsets.all(8.0),
                     child: Column(
                       children: [
-                        Image.asset(
-                          type_image[i],
-                          height: 100,
-                          width: 100,
+                        CircleAvatar(
+                          backgroundImage: AssetImage(type_image[i]),
+                          minRadius: 30.0,
                         ),
                         Text(
                           type_store[i],
@@ -408,7 +462,6 @@ class _suggestState extends State<suggest> {
                   onTap: () {
                     setState(() {
                       select = type_store[i];
-                      tost(select);
                     });
                   },
                 ),
@@ -416,7 +469,7 @@ class _suggestState extends State<suggest> {
           ),
         ),
         SizedBox(
-          height: 15,
+          height: 4,
         ),
         Container(
           alignment: Alignment.topLeft,
@@ -447,28 +500,27 @@ class _suggestState extends State<suggest> {
               shrinkWrap: true,
               children: snapshot.data!.docs
                   .map((DocumentSnapshot document) {
-                Map<String, dynamic> data =
-                document.data()! as Map<String, dynamic>;
-                //   print(document.id);
-                if(select == data['department'] || select == 'All products'){
-                  return item(
-                    location: data['location'],
-                    type: data['type'],
-                    price: data['price'],
-                    image: data['image'],
-                    duc_id: document.id,
-                    email: data['Email'],
-                    current_user: '${user?.email}',
-                    current_data: '$current_date',
-                    phone_num: data['phone'],
-
-                  );
-
-                }
-                else{
-                  return SizedBox();
-                }
-              })
+                    Map<String, dynamic> data =
+                        document.data()! as Map<String, dynamic>;
+                    //   print(document.id);
+                    if (data['department'].contains(select) ||
+                        select == 'All products' ||
+                        data['type'].contains(select)) {
+                      return item(
+                        location: data['location'],
+                        type: data['type'],
+                        price: data['price'],
+                        image: data['image'],
+                        duc_id: document.id,
+                        email: data['Email'],
+                        current_user: '${user?.email}',
+                        current_data: '$current_date',
+                        phone_num: data['phone'],
+                      );
+                    } else {
+                      return SizedBox();
+                    }
+                  })
                   .toList()
                   .cast(),
             );

@@ -222,6 +222,7 @@ class _push_postsState extends State<push_posts> {
                         'type': type,
                         'department' : dep,
                         'price': price,
+                        'count': count,
                         'phone': phone_num,
                         'current_data': current_date
                       }).onError((e, _) => print("Error writing document: $e")),

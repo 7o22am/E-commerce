@@ -80,7 +80,6 @@ class item2 extends StatelessWidget {
                   SlidableAction(
                     flex: 1,
                     onPressed:(BuildContext context) async {
-
                            db.collection('Post').doc('$duc_id').delete();
                          final storageRef = FirebaseStorage.instance.ref(image_name);
                          final desertRef = storageRef.child('file/');

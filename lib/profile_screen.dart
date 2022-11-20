@@ -19,7 +19,7 @@ class profile extends StatefulWidget {
 }
 
 class _profileState extends State<profile> {
-  String username = '', phone_num = '', city = '';
+  late String username , phone_num , city ;
 
   File? _photo;
   final ImagePicker _picker = ImagePicker();
@@ -104,6 +104,7 @@ class _profileState extends State<profile> {
                           child: CircleAvatar(
                             backgroundImage: NetworkImage(data['image']),
                             minRadius: 80.0,
+
                           ),
                           onTap: (() {
                             imgFromGallery();
@@ -117,11 +118,20 @@ class _profileState extends State<profile> {
 
                           }),
                         )),
+              Positioned(
+               top: 320,
+              left: 125,
+                 child: Icon(Icons.camera_alt)
+              )
                   ],
                 ),
                 TextField(
                   onChanged: (value) {
-                    username = value;
+
+                      if(value.isNotEmpty) username = value;
+                      else username = data['name'];
+
+
                   },
                   decoration: InputDecoration(
                     border: InputBorder.none,
@@ -167,7 +177,11 @@ class _profileState extends State<profile> {
                 ),
                 TextField(
                   onChanged: (value) {
-                    phone_num = value;
+
+
+                        if(value.isNotEmpty) phone_num = value;
+                        else phone_num = data['phone_num'];
+
                   },
                   keyboardType: TextInputType.number,
                   decoration: InputDecoration(
@@ -192,7 +206,10 @@ class _profileState extends State<profile> {
                 ),
                 TextField(
                   onChanged: (value) {
-                    city = value;
+
+                     if(value.isNotEmpty) city = value;
+                     else city = data['city'];
+
                   },
                   decoration: InputDecoration(
                     border: InputBorder.none,
@@ -254,7 +271,7 @@ class _profileState extends State<profile> {
                       minWidth: 200.0,
                       height: 42.0,
                       child: Text(
-                        'Updata !',
+                        'Update !',
 
                         style: TextStyle(fontSize: 24.0,color: Colors.white),
                       ),
