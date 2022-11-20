@@ -88,6 +88,17 @@ flutter:
     - image/person.png
     - image/ks.gif
     - image/ks.gif
+    - image/story_image/computr.png
+    - image/story_image/kids.png
+    - image/story_image/men.png
+    - image/story_image/mobile.png
+    - image/story_image/super.png
+    - image/story_image/tv.png
+    - image/story_image/woman.png
+    - image/story_image/helth.png
+
+
+
 
   #   - images/a_dot_ham.jpeg
 
