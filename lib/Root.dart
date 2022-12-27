@@ -1,6 +1,7 @@
 import 'package:dot_navigation_bar/dot_navigation_bar.dart';
 import 'package:e_commerce/Home_screen.dart';
 import 'package:e_commerce/itemRoot.dart';
+import 'package:e_commerce/orders.dart';
 import 'package:e_commerce/welcome_screen.dart';
 import 'package:e_commerce/profile_screen.dart';
 import 'package:e_commerce/shop_screen.dart';
@@ -43,6 +44,12 @@ class _main_screenState extends State<main_screen> {
             fontFamily: 'new2' ,fontSize: 30.0
         ),),
         actions: [
+          IconButton(onPressed: () {
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => myorders()));
+          },
+            icon: Icon(Icons.car_crash_outlined,size: 25,color: Colors.white,),
+          ),
           IconButton(onPressed: () {
           Navigator.push(context,
               MaterialPageRoute(builder: (context) => shop()));

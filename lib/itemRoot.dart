@@ -5,7 +5,9 @@ import 'package:e_commerce/shop_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:path/path.dart';
 import 'package:url_launcher/url_launcher.dart';
+
 
 bool buy_it = false;
 String select = 'All products';
@@ -157,8 +159,10 @@ class item extends StatelessWidget {
       required this.location,
       required this.image,
       required this.duc_id,
+        required this. new_price,
       required this.current_user,
       required this.current_data,
+        required this.count,
       required this.phone_num});
   final String email,
       type,
@@ -168,7 +172,8 @@ class item extends StatelessWidget {
       duc_id,
       current_user,
       current_data,
-      phone_num;
+      new_price,
+      phone_num,count;
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -179,13 +184,13 @@ class item extends StatelessWidget {
         ),
         Listitem(
           type: '$type',
-          price: '$price EGY',
+          price: '$price',
           time: '$current_data',
           location: '$location',
           imagesee: '$image',
           current_user: '$current_user',
           email: '$email',
-          image: '$image',
+          image: '$image', new_price: '$new_price', count: '$count',
         ),
       ],
     ));
@@ -202,12 +207,16 @@ class Listitem extends StatelessWidget {
     required this.imagesee,
     required this.email,
     required this.image,
+    required this.new_price,
+    required this.count
   });
-  String type, price, location, time, imagesee, current_user, email, image;
+  String type, price, location, time, imagesee,
+      current_user, email, image,new_price ,count;
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       child: ListTile(
+         
         title: Text(
           type,
           style: TextStyle(
@@ -216,15 +225,42 @@ class Listitem extends StatelessWidget {
               color: Colors.lightBlue),
           maxLines: 1,
         ),
-        subtitle: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.start,
+        subtitle: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text(
-              '$price',
-              style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),
-              maxLines: 1,
+            Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                if(new_price.isEmpty) Text(
+                  '$price EGY'  ,
+                  style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold,
+                  ),
+                  maxLines: 1,
+                )
+                else Row(
+                  children: [
+                    Text(
+                       price ,
+                      style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold,decoration: TextDecoration.lineThrough
+                      ),
+                      maxLines: 1,
+                    ),
+                    Text(
+                      '  $new_price EGY' ,
+                      style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold,
+                      ),
+                      maxLines: 1,
+                    )
+                  ],
+                ),
+
+              ],
             ),
+            Text('$count available' ,
+              style: TextStyle(fontSize: 14.0,
+                color: Colors.green ,fontFamily: 'normal'
+              ),)
           ],
         ),
         trailing: IconButton(
@@ -516,6 +552,7 @@ class _suggestState extends State<suggest> {
                         current_user: '${user?.email}',
                         current_data: '$current_date',
                         phone_num: data['phone'],
+                        new_price:  data['new_price'], count: data['count'],
                       );
                     } else {
                       return SizedBox();

@@ -13,7 +13,7 @@ import 'package:path/path.dart';
 import 'Home_screen.dart';
 import 'Root.dart';
 
-late String location = 'null', price = 'null', type = 'null',count='f',
+late String location = '', price = '', type = '',count='',
     phone_num = '',  dep,image_url='',image_name='';
 bool buy_it = false;
 
@@ -224,7 +224,8 @@ class _push_postsState extends State<push_posts> {
                         'price': price,
                         'count': count,
                         'phone': phone_num,
-                        'current_data': current_date
+                        'current_data': current_date,
+                        'new_price': ''
                       }).onError((e, _) => print("Error writing document: $e")),
                     } else {
                       tost(' Enter all data '),
