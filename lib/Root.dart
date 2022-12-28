@@ -6,10 +6,11 @@ import 'package:e_commerce/welcome_screen.dart';
 import 'package:e_commerce/profile_screen.dart';
 import 'package:e_commerce/shop_screen.dart';
 import 'package:e_commerce/my_posts.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-
 import 'Push_posts.dart';
 
+final user = FirebaseAuth.instance.currentUser;
 class main_screen extends StatefulWidget {
   const main_screen({Key? key}) : super(key: key);
 
@@ -41,7 +42,7 @@ class _main_screenState extends State<main_screen> {
           icon: Icon(Icons.arrow_back_ios,color: Colors.white,),
         ),
         title: Text('E-commerce' ,style: TextStyle(color: Colors.white,
-            fontFamily: 'new2' ,fontSize: 30.0
+            fontFamily: 'new2' ,fontSize: 20.0
         ),),
         actions: [
           IconButton(onPressed: () {
@@ -56,9 +57,14 @@ class _main_screenState extends State<main_screen> {
         },
             icon: Icon(Icons.shopping_cart_outlined,size: 25,color: Colors.white,),
         ),
-          IconButton(onPressed: () {
-            Navigator.push(context,
-                MaterialPageRoute(builder: (context) => welcome_page()));
+          IconButton(onPressed: () async {
+            setState(() async {
+              await FirebaseAuth.instance.signOut();
+              user?.reload();
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => welcome_page()));
+            });
+
           },
             icon: Icon(Icons.logout,size: 25,color: Colors.white,),
           )
@@ -90,7 +96,7 @@ class _main_screenState extends State<main_screen> {
         selectedItemColor: Color(0xFF111328),
         onTap: _onItemTapped,
       ),
-      extendBody:  true,
+      extendBody:  false,
       body: pages[currentpage],
     );
   }

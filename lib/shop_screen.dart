@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 
 import 'Root.dart';
 import 'itemRoot.dart';
+import 'orders.dart';
 
 class shop extends StatefulWidget {
   const shop({Key? key}) : super(key: key);
@@ -26,12 +27,19 @@ class _shopState extends State<shop> {
           icon: Icon(Icons.arrow_back_ios,color: Colors.white,),
         ),
         title: Center(child: Text('E-commerce' ,style: TextStyle(color: Colors.white,
-            fontSize: 30.0,
+            fontSize: 20.0,
             fontFamily: 'new2'),)),
-        actions: [IconButton(onPressed: () {
+        actions: [ IconButton(onPressed: () {
+          Navigator.push(context,
+              MaterialPageRoute(builder: (context) => myorders()));
+        },
+          icon: Icon(Icons.car_crash_outlined,size: 25,color: Colors.white,),
+        ),
+          IconButton(onPressed: () {
 
         },
-            icon: Icon(Icons.info,size: 25,color: Colors.white,))],
+            icon: Icon(Icons.info,size: 25,color: Colors.white,))
+        ],
         backgroundColor: Color(0x0FF0A0E21),
       ),
       body: shopRoot(),

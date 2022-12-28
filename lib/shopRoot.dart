@@ -4,12 +4,14 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import 'Root.dart';
+import 'main.dart';
+
 bool buy_it = false;
 class shopRoot extends StatefulWidget {
   @override
   _shopRootState createState() => _shopRootState();
 }
-final user = FirebaseAuth.instance.currentUser;
 class _shopRootState extends State<shopRoot> {
 
   final Stream<QuerySnapshot> _usersStream =

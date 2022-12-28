@@ -12,6 +12,7 @@ import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 import 'package:path/path.dart';
 import 'Home_screen.dart';
 import 'Root.dart';
+import 'main.dart';
 
 late String location = '', price = '', type = '',count='',
     phone_num = '',  dep,image_url='',image_name='';
@@ -34,7 +35,6 @@ void tost(String wrong) {
       fontSize: 16.0);
 }
 
-final user = FirebaseAuth.instance.currentUser;
 DateTime current_date = DateTime.now();
 FirebaseFirestore db = FirebaseFirestore.instance;
 final _auth = FirebaseAuth.instance;

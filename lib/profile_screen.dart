@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:e_commerce/shop_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -8,8 +9,11 @@ import 'package:image_picker/image_picker.dart';
 import 'package:path/path.dart';
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 import 'Push_posts.dart';
+import 'Root.dart';
+import 'main.dart';
+import 'orders.dart';
 
-final user = FirebaseAuth.instance.currentUser;
+var mAuth = FirebaseAuth.instance;
 DateTime current_date = DateTime.now();
 FirebaseFirestore db = FirebaseFirestore.instance;
 
@@ -19,7 +23,9 @@ class profile extends StatefulWidget {
 }
 
 class _profileState extends State<profile> {
-  late String username , phone_num , city ;
+  CollectionReference users =
+  FirebaseFirestore.instance.collection('user_Inf');
+  late String username, phone_num, city;
 
   File? _photo;
   final ImagePicker _picker = ImagePicker();
@@ -56,8 +62,7 @@ class _profileState extends State<profile> {
 
   @override
   Widget build(BuildContext context) {
-    CollectionReference users =
-        FirebaseFirestore.instance.collection('user_Inf');
+    user?.reload();
     return SingleChildScrollView(
       physics: BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
       child: FutureBuilder<DocumentSnapshot>(
@@ -104,7 +109,6 @@ class _profileState extends State<profile> {
                           child: CircleAvatar(
                             backgroundImage: NetworkImage(data['image']),
                             minRadius: 80.0,
-
                           ),
                           onTap: (() {
                             imgFromGallery();
@@ -115,23 +119,18 @@ class _profileState extends State<profile> {
                               'image': image_url,
                             }).onError((e, _) =>
                                     print("Error writing document: $e"));
-
                           }),
                         )),
-              Positioned(
-               top: 320,
-              left: 125,
-                 child: Icon(Icons.camera_alt)
-              )
+                    Positioned(
+                        top: 320, left: 125, child: Icon(Icons.camera_alt))
                   ],
                 ),
                 TextField(
                   onChanged: (value) {
-
-                      if(value.isNotEmpty) username = value;
-                      else username = data['name'];
-
-
+                    if (value.isNotEmpty)
+                      username = value;
+                    else
+                      username = data['name'];
                   },
                   decoration: InputDecoration(
                     border: InputBorder.none,
@@ -177,11 +176,10 @@ class _profileState extends State<profile> {
                 ),
                 TextField(
                   onChanged: (value) {
-
-
-                        if(value.isNotEmpty) phone_num = value;
-                        else phone_num = data['phone_num'];
-
+                    if (value.isNotEmpty)
+                      phone_num = value;
+                    else
+                      phone_num = data['phone_num'];
                   },
                   keyboardType: TextInputType.number,
                   decoration: InputDecoration(
@@ -206,10 +204,10 @@ class _profileState extends State<profile> {
                 ),
                 TextField(
                   onChanged: (value) {
-
-                     if(value.isNotEmpty) city = value;
-                     else city = data['city'];
-
+                    if (value.isNotEmpty)
+                      city = value;
+                    else
+                      city = data['city'];
                   },
                   decoration: InputDecoration(
                     border: InputBorder.none,
@@ -229,7 +227,7 @@ class _profileState extends State<profile> {
                   ),
                 ),
                 SizedBox(
-                  height: 14.0,
+                  height: 18.0,
                 ),
                 Padding(
                   padding:
@@ -272,14 +270,87 @@ class _profileState extends State<profile> {
                       height: 42.0,
                       child: Text(
                         'Update !',
-
-                        style: TextStyle(fontSize: 24.0,color: Colors.white),
+                        style: TextStyle(fontSize: 24.0, color: Colors.white),
                       ),
                     ),
                   ),
                 ),
-                SizedBox(
-                  height: 80.0,
+                Padding(
+                  padding:
+                      EdgeInsets.symmetric(vertical: 16.0, horizontal: 50.0),
+                  child: Material(
+                    color: Color(0xFF111328),
+                    borderRadius: BorderRadius.all(Radius.circular(30.0)),
+                    elevation: 5.0,
+                    child: MaterialButton(
+                      onPressed: () async {
+                        Navigator.push(context,
+                            MaterialPageRoute(builder: (context) => shop()));
+                      },
+                      minWidth: 200.0,
+                      height: 42.0,
+                      child: Text(
+                        ' My Car ',
+                        style: TextStyle(fontSize: 24.0, color: Colors.white),
+                      ),
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding:
+                      EdgeInsets.symmetric(vertical: 16.0, horizontal: 50.0),
+                  child: Material(
+                    color: Color(0xFF111328),
+                    borderRadius: BorderRadius.all(Radius.circular(30.0)),
+                    elevation: 5.0,
+                    child: MaterialButton(
+                      onPressed: () async {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => myorders()));
+                      },
+                      minWidth: 200.0,
+                      height: 42.0,
+                      child: Text(
+                        ' My Orders ',
+                        style: TextStyle(fontSize: 24.0, color: Colors.white),
+                      ),
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding:
+                      EdgeInsets.symmetric(vertical: 16.0, horizontal: 50.0),
+                  child: Material(
+                    color: Color(0xFF111328),
+                    borderRadius: BorderRadius.all(Radius.circular(30.0)),
+                    elevation: 5.0,
+                    child: MaterialButton(
+                      onPressed: () async {
+                        Scaffold.of(context).showSnackBar(SnackBar(
+                          content:  Text(' Check your E-mail ${user!.email.toString()}  '),
+                          duration: const Duration(seconds: 3),
+                          action: SnackBarAction(
+                            label: 'Go ',
+                            onPressed: () async {
+                              setState(() async {
+                                await FirebaseAuth.instance
+                                    .sendPasswordResetEmail(
+                                        email: user!.email.toString());
+                              });
+                            },
+                          ),
+                        ));
+                      },
+                      minWidth: 200.0,
+                      height: 42.0,
+                      child: Text(
+                        'Reset your Password ',
+                        style: TextStyle(fontSize: 24.0, color: Colors.white),
+                      ),
+                    ),
+                  ),
                 ),
               ],
             );

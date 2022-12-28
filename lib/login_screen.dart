@@ -15,7 +15,6 @@ class login extends StatefulWidget {
 
 class _loginState extends State<login> {
   @override
-  final user = FirebaseAuth.instance.currentUser;
   String email='';
   String pass = '';
   void tost(String wrong ){
@@ -119,7 +118,7 @@ class _loginState extends State<login> {
                             password: pass
                         );
                         if(currentuser != null ){
-                          tost('WELLCOME');
+                          tost('Welcome');
                           Navigator.push(
                               context, MaterialPageRoute(builder: (context) => main_screen()));}
                         else

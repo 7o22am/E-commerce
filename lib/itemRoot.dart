@@ -8,6 +8,9 @@ import 'package:intl/intl.dart';
 import 'package:path/path.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import 'Root.dart';
+import 'main.dart';
+
 
 bool buy_it = false;
 String select = 'All products';
@@ -145,7 +148,7 @@ class _itemRootState extends State<itemRoot> {
 
           ],
         ), //search
-        Padding(padding: const EdgeInsets.all(8.0), child: suggest()), //store
+       Padding(padding: const EdgeInsets.all(8.0), child: suggest()), //store
       ]),
     );
   }
@@ -177,6 +180,7 @@ class item extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
+     // color: Color(0x0FF0A0E21),
         child: Column(
       children: [
         SizedBox(
@@ -312,15 +316,36 @@ class Listitem extends StatelessWidget {
                                 fontWeight: FontWeight.bold,
                                 color: Colors.lightBlue),
                           ),
+
                           subtitle: Column(
                             mainAxisAlignment: MainAxisAlignment.start,
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text(
-                                '$price',
-                                style: TextStyle(
-                                    fontSize: 20.0,
-                                    fontWeight: FontWeight.bold),
+                              Text('$count available' ,
+                                style: TextStyle(fontSize: 14.0,
+                                    color: Colors.green ,fontFamily: 'normal'
+                                ),),
+                              if(new_price.isEmpty) Text(
+                                '$price EGY'  ,
+                                style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold,
+                                ),
+                                maxLines: 1,
+                              )
+                              else Row(
+                                children: [
+                                  Text(
+                                    price ,
+                                    style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold,decoration: TextDecoration.lineThrough
+                                    ),
+                                    maxLines: 1,
+                                  ),
+                                  Text(
+                                    '  $new_price EGY' ,
+                                    style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold,
+                                    ),
+                                    maxLines: 1,
+                                  )
+                                ],
                               ),
                               Text(
                                 time,
@@ -531,9 +556,8 @@ class _suggestState extends State<suggest> {
             }
 
             return ListView(
-              physics: BouncingScrollPhysics(
-                  parent: AlwaysScrollableScrollPhysics()),
               shrinkWrap: true,
+              physics: const NeverScrollableScrollPhysics(),
               children: snapshot.data!.docs
                   .map((DocumentSnapshot document) {
                     Map<String, dynamic> data =

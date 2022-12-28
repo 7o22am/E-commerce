@@ -6,6 +6,9 @@ import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 
+import 'Root.dart';
+import 'main.dart';
+
 bool buy_it = false;
 FirebaseFirestore db = FirebaseFirestore.instance;
 String new_salary = '';
@@ -15,7 +18,6 @@ class uploadRoot extends StatefulWidget {
   _uploadRootState createState() => _uploadRootState();
 }
 
-final user = FirebaseAuth.instance.currentUser;
 
 class _uploadRootState extends State<uploadRoot> {
   final Stream<QuerySnapshot> _usersStream =
@@ -45,7 +47,7 @@ class _uploadRootState extends State<uploadRoot> {
               .map((DocumentSnapshot document) {
                 Map<String, dynamic> data =
                     document.data()! as Map<String, dynamic>;
-                if (data['Email'] == '${user?.email}') {
+                if ('${data['Email']}' == '${user?.email}') {
                   return item2(
                     location: data['location'],
                     type: data['type'],
