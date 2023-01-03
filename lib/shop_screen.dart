@@ -1,10 +1,10 @@
 import 'package:e_commerce/shopRoot.dart';
-import 'package:e_commerce/myPosts_Root.dart';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import 'Root.dart';
-import 'itemRoot.dart';
+
 import 'orders.dart';
 
 class shop extends StatefulWidget {
@@ -26,7 +26,7 @@ class _shopState extends State<shop> {
           },
           icon: Icon(Icons.arrow_back_ios,color: Colors.white,),
         ),
-        title: Center(child: Text('E-commerce' ,style: TextStyle(color: Colors.white,
+        title: Center(child: Text('My Shop' ,style: TextStyle(color: Colors.white,
             fontSize: 20.0,
             fontFamily: 'new2'),)),
         actions: [ IconButton(onPressed: () {

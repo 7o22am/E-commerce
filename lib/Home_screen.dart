@@ -6,16 +6,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:firebase_storage/firebase_storage.dart';
-import 'package:intl/intl.dart';
-import 'package:intl/number_symbols_data.dart';
+
 import 'package:path/path.dart';
-import 'package:path_provider/path_provider.dart';
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 
-late String location = 'null', price = 'null', type = 'null' , phone_num='' ,image_url='';
-bool buy_it = false;
-
+late String location = '', price = '', type = '' , phone_num='' ,image_url='';
 class home extends StatefulWidget {
   const home({Key? key}) : super(key: key);
 

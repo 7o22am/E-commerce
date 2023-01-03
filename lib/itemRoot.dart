@@ -1,15 +1,14 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:e_commerce/Push_posts.dart';
-import 'package:e_commerce/registration_screen.dart';
+
 import 'package:e_commerce/shop_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
-import 'package:path/path.dart';
+
 import 'package:url_launcher/url_launcher.dart';
 
 import 'Root.dart';
-import 'main.dart';
+
 
 
 bool buy_it = false;
@@ -194,7 +193,9 @@ class item extends StatelessWidget {
           imagesee: '$image',
           current_user: '$current_user',
           email: '$email',
-          image: '$image', new_price: '$new_price', count: '$count',
+          image: '$image', new_price: '$new_price',
+          count: '$count', duc_id: '$duc_id',
+          phone_num: '$phone_num',
         ),
       ],
     ));
@@ -212,15 +213,17 @@ class Listitem extends StatelessWidget {
     required this.email,
     required this.image,
     required this.new_price,
-    required this.count
+    required this.count,
+    required this.duc_id,
+    required this.phone_num
   });
   String type, price, location, time, imagesee,
-      current_user, email, image,new_price ,count;
+      current_user, email, image,new_price ,count,duc_id ,phone_num;
+  DateTime order_date = DateTime.now();
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       child: ListTile(
-         
         title: Text(
           type,
           style: TextStyle(
@@ -280,7 +283,8 @@ class Listitem extends StatelessWidget {
               'price': price,
               'location': location,
               'current_data': time,
-              'phone': phone_num
+              'phone': phone_num,
+              'id':duc_id
             }).onError((e, _) => print("Error writing document: $e"));
             Scaffold.of(context).showSnackBar(SnackBar(
               content: const Text(' Add to Car successfully '),
@@ -383,7 +387,8 @@ class Listitem extends StatelessWidget {
                                 'price': price,
                                 'location': location,
                                 'current_data': time,
-                                'phone': phone_num
+                                'phone': phone_num,
+                                'id':duc_id
                               }).onError((e, _) =>
                                   print("Error writing document: $e"));
                               Scaffold.of(context).showSnackBar(SnackBar(
@@ -417,7 +422,24 @@ class Listitem extends StatelessWidget {
                         ElevatedButton(
                             style: ElevatedButton.styleFrom(
                                 primary: Color(0xFF111328)),
-                            onPressed: () {},
+                            onPressed: () {
+                              db.collection('Orders').doc().set({
+                                'Email': email,
+                                'phone':phone_num ,
+                                'id': duc_id,
+                                'order_time':order_date,
+                                'count': '1' ,
+                                'price':price,
+                                'new_price':new_price,
+                                'image':image,
+                                'location': location,
+                                'type':type
+                              }).onError((e, _) =>
+                                  print("Error writing document: $e"));
+
+
+
+                            },
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [

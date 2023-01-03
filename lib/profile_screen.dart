@@ -10,7 +10,6 @@ import 'package:path/path.dart';
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 import 'Push_posts.dart';
 import 'Root.dart';
-import 'main.dart';
 import 'orders.dart';
 
 var mAuth = FirebaseAuth.instance;

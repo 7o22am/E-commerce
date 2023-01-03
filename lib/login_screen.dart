@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'Root.dart';
 
-final _firestore = FirebaseFirestore.instance;
 
 class login extends StatefulWidget {
   const login({Key? key}) : super(key: key);

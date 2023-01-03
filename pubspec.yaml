@@ -40,8 +40,6 @@ dependencies:
   path: ^1.8.1
   image_downloader: ^0.31.0
   url_launcher: ^6.1.6
-  navigation_action_bar: ^0.0.1
-  curved_navigation_bar: ^1.0.3 #latest version
   dot_navigation_bar: ^1.0.1+4
   flutter_dropdown: ^1.0.1+hotfix.1
   flutter_slidable: ^2.0.0
