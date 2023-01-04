@@ -9,6 +9,7 @@ import 'package:e_commerce/my_posts.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:path/path.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'Push_posts.dart';
 
 final user = FirebaseAuth.instance.currentUser;
@@ -59,9 +60,12 @@ class _main_screenState extends State<main_screen> {
             icon: Icon(Icons.shopping_cart_outlined,size: 25,color: Colors.white,),
         ),
           IconButton(onPressed: () async {
+            final prefs = await SharedPreferences.getInstance();
             setState(() async {
               await FirebaseAuth.instance.signOut();
               user?.reload();
+              await prefs.setBool('Remember', false);
+              await prefs.setString('email', '');
               Navigator.push(context,
                   MaterialPageRoute(builder: (context) => welcome_page()));
             });
@@ -102,6 +106,3 @@ class _main_screenState extends State<main_screen> {
     );
   }
 }
-/* currentIndex: currentpage,
-        selectedItemColor: Colors.redAccent,
-        onTap: _onItemTapped,*/

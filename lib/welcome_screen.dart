@@ -34,6 +34,7 @@ class _welcome_pageState extends State<welcome_page> {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
+        backgroundColor: Colors.white,
         body: SafeArea(
           child: ListView(
             children: [

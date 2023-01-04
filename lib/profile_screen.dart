@@ -340,7 +340,7 @@ class _profileState extends State<profile> {
                               setState(() async {
                                 await FirebaseAuth.instance
                                     .sendPasswordResetEmail(
-                                        email: user!.email.toString());
+                                        email: user!.email.toString().trim());
                               });
                             },
                           ),
