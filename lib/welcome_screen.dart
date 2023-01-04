@@ -53,7 +53,7 @@ class _welcome_pageState extends State<welcome_page> {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.all(8.0),
+                padding: const EdgeInsets.all(10.0),
                 child: Container(
                   height: 220,
                   child: PageView(

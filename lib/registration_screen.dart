@@ -40,7 +40,7 @@ class _registrationState extends State<registration> {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: <Widget>[
               SizedBox(
-                height: 120.0,
+                height: 100.0,
               ),
               Container(
                 height: 200.0,
@@ -60,7 +60,7 @@ class _registrationState extends State<registration> {
                 decoration: InputDecoration(
                   hintText: 'Enter your Name ',
                   contentPadding:
-                  EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
+                  EdgeInsets.symmetric(vertical: 7.0, horizontal: 15.0),
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.all(Radius.circular(32.0)),
                   ),
@@ -84,7 +84,7 @@ class _registrationState extends State<registration> {
                 decoration: InputDecoration(
                   hintText: 'Enter your Email',
                   contentPadding:
-                      EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
+                      EdgeInsets.symmetric(vertical: 7.0, horizontal:15.0),
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.all(Radius.circular(32.0)),
                   ),
@@ -109,7 +109,7 @@ class _registrationState extends State<registration> {
                 decoration: InputDecoration(
                   hintText: 'Enter your Password',
                   contentPadding:
-                      EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
+                      EdgeInsets.symmetric(vertical: 7.0, horizontal: 15.0),
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.all(Radius.circular(32.0)),
                   ),
@@ -133,7 +133,7 @@ class _registrationState extends State<registration> {
                 decoration: InputDecoration(
                   hintText: 'Enter your Phone Number  ',
                   contentPadding:
-                  EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
+                  EdgeInsets.symmetric(vertical: 7.0, horizontal: 15.0),
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.all(Radius.circular(32.0)),
                   ),
@@ -157,7 +157,7 @@ class _registrationState extends State<registration> {
                 decoration: InputDecoration(
                   hintText: 'Enter your City ',
                   contentPadding:
-                  EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
+                  EdgeInsets.symmetric(vertical: 7.0, horizontal: 15.0),
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.all(Radius.circular(32.0)),
                   ),

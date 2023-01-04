@@ -1,5 +1,6 @@
 
 import 'package:e_commerce/orderRoot.dart';
+import 'package:e_commerce/shop_screen.dart';
 import 'package:flutter/material.dart';
 
 import 'Root.dart';
@@ -25,11 +26,12 @@ class _myordersState extends State<myorders> {
         title: Center(child: Text('My Orders' ,style: TextStyle(color: Colors.white,
             fontSize: 20.0,
             fontFamily: 'new2'),)),
-        actions: [ IconButton(onPressed: () {
+        actions: [
+          IconButton(onPressed: () {
           Navigator.push(context,
-              MaterialPageRoute(builder: (context) => myorders()));
+              MaterialPageRoute(builder: (context) => shop()));
         },
-          icon: Icon(Icons.car_crash_outlined,size: 25,color: Colors.white,),
+          icon: Icon(Icons.shopping_cart_outlined,size: 25,color: Colors.white,),
         ),
           IconButton(onPressed: () {
 

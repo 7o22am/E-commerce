@@ -227,7 +227,7 @@ class Listitem extends StatelessWidget {
         title: Text(
           type,
           style: TextStyle(
-              fontSize: 25.0,
+              fontSize: 20.0,
               fontWeight: FontWeight.bold,
               color: Colors.lightBlue),
           maxLines: 1,
@@ -241,7 +241,7 @@ class Listitem extends StatelessWidget {
               children: [
                 if(new_price.isEmpty) Text(
                   '$price EGY'  ,
-                  style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold,
+                  style: TextStyle(fontSize: 15.0, fontWeight: FontWeight.bold,
                   ),
                   maxLines: 1,
                 )
@@ -249,13 +249,13 @@ class Listitem extends StatelessWidget {
                   children: [
                     Text(
                        price ,
-                      style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold,decoration: TextDecoration.lineThrough
+                      style: TextStyle(fontSize: 15.0, fontWeight: FontWeight.bold,decoration: TextDecoration.lineThrough
                       ),
                       maxLines: 1,
                     ),
                     Text(
                       '  $new_price EGY' ,
-                      style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold,
+                      style: TextStyle(fontSize: 15.0, fontWeight: FontWeight.bold,
                       ),
                       maxLines: 1,
                     )
@@ -282,6 +282,7 @@ class Listitem extends StatelessWidget {
               'type': type,
               'price': price,
               'location': location,
+              'new_price':new_price,
               'current_data': time,
               'phone': phone_num,
               'id':duc_id
@@ -316,7 +317,7 @@ class Listitem extends StatelessWidget {
                           title: Text(
                             type,
                             style: TextStyle(
-                                fontSize: 25.0,
+                                fontSize: 20.0,
                                 fontWeight: FontWeight.bold,
                                 color: Colors.lightBlue),
                           ),
@@ -326,12 +327,12 @@ class Listitem extends StatelessWidget {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text('$count available' ,
-                                style: TextStyle(fontSize: 14.0,
+                                style: TextStyle(fontSize: 10.0,
                                     color: Colors.green ,fontFamily: 'normal'
                                 ),),
                               if(new_price.isEmpty) Text(
                                 '$price EGY'  ,
-                                style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold,
+                                style: TextStyle(fontSize: 15.0, fontWeight: FontWeight.bold,
                                 ),
                                 maxLines: 1,
                               )
@@ -339,13 +340,13 @@ class Listitem extends StatelessWidget {
                                 children: [
                                   Text(
                                     price ,
-                                    style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold,decoration: TextDecoration.lineThrough
+                                    style: TextStyle(fontSize: 15.0, fontWeight: FontWeight.bold,decoration: TextDecoration.lineThrough
                                     ),
                                     maxLines: 1,
                                   ),
                                   Text(
                                     '  $new_price EGY' ,
-                                    style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold,
+                                    style: TextStyle(fontSize: 15.0, fontWeight: FontWeight.bold,
                                     ),
                                     maxLines: 1,
                                   )
@@ -354,22 +355,22 @@ class Listitem extends StatelessWidget {
                               Text(
                                 time,
                                 style: TextStyle(
-                                    fontSize: 20.0,
+                                    fontSize: 15.0,
                                     fontWeight: FontWeight.bold),
                               ),
                               Text(
                                 location,
                                 style: TextStyle(
-                                    fontSize: 20.0,
+                                    fontSize: 15.0,
                                     fontWeight: FontWeight.bold),
                               ),
                             ],
                           ),
-                          horizontalTitleGap: 16.0,
+                          horizontalTitleGap: 8.0,
                           trailing: IconButton(
                             icon: new Icon(
                               Icons.share,
-                              size: 35,
+                              size: 15,
                             ),
                             onPressed: () {
                             },
@@ -387,24 +388,12 @@ class Listitem extends StatelessWidget {
                                 'price': price,
                                 'location': location,
                                 'current_data': time,
+                                'new_price': new_price,
                                 'phone': phone_num,
                                 'id':duc_id
                               }).onError((e, _) =>
                                   print("Error writing document: $e"));
-                              Scaffold.of(context).showSnackBar(SnackBar(
-                                content:
-                                    const Text(' Add to Car successfully '),
-                                duration: const Duration(seconds: 3),
-                                action: SnackBarAction(
-                                  label: 'Car ?',
-                                  onPressed: () {
-                                    Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) => shop()));
-                                  },
-                                ),
-                              ));
+                              tost('Add to Car successfully');
                             },
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,
@@ -427,7 +416,7 @@ class Listitem extends StatelessWidget {
                                 'Email': email,
                                 'phone':phone_num ,
                                 'id': duc_id,
-                                'order_time':order_date,
+                                'order_time':time,
                                 'count': '1' ,
                                 'price':price,
                                 'new_price':new_price,
@@ -437,7 +426,7 @@ class Listitem extends StatelessWidget {
                               }).onError((e, _) =>
                                   print("Error writing document: $e"));
 
-
+                              tost('Add to Car Orders');
 
                             },
                             child: Row(
@@ -453,49 +442,7 @@ class Listitem extends StatelessWidget {
                                 )
                               ],
                             )),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceAround,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            ElevatedButton(
-                                style: ElevatedButton.styleFrom(
-                                    primary: Color(0xFF111328)),
-                                onPressed: () {},
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Text(
-                                      '    Messenger    ',
-                                      style: TextStyle(
-                                          fontSize: 18.0, fontFamily: 'new2'),
-                                    ),
-                                    Icon(
-                                      Icons.message,
-                                    )
-                                  ],
-                                )),
-                            ElevatedButton(
-                                style: ElevatedButton.styleFrom(
-                                    primary: Color(0xFF111328)),
-                                onPressed: () {
-                                  final Uri _url = Uri.parse('tel:$phone_num');
-                                  launchUrl(_url);
-                                },
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Text(
-                                      '       Call      ',
-                                      style: TextStyle(
-                                          fontSize: 18.0, fontFamily: 'new2'),
-                                    ),
-                                    Icon(
-                                      Icons.call,
-                                    ),
-                                  ],
-                                ))
-                          ],
-                        )
+
                       ],
                     ),
                   ),

@@ -8,6 +8,7 @@ import 'package:e_commerce/shop_screen.dart';
 import 'package:e_commerce/my_posts.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:path/path.dart';
 import 'Push_posts.dart';
 
 final user = FirebaseAuth.instance.currentUser;

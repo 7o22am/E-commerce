@@ -42,7 +42,7 @@ class _shopRootState extends State<shopRoot> {
             return item(location: data['location'], type: data['type'],
               price: data['price'], image: data['image'],duc_id: document.id,
               email: data['Email'], current_user: '${user?.email}', current_data: '$current_date',
-              phone_num: data['phone'] ,
+              phone_num: data['phone'], new_price: data['new_price'] ,
               /* title: Text(data['Email']),
               subtitle: Text(data['Email']),*/
 
@@ -59,14 +59,10 @@ class item extends StatelessWidget {
   item({required this.email ,required this.type , required this.price,
     required this.location, required this.image,
     required this.duc_id, required this.current_user,
-    required this.current_data, required this.phone_num});
-  final String email ,type , price , location ,
+    required this.current_data, required this.phone_num ,required this.new_price,
+  });
+  final String email ,type , price , location ,    new_price,
       image ,duc_id ,current_user , current_data ,phone_num;
-  String get_image_name(String image_path){
-    String s = image_path;
-    List ss =s.split('/');
-    return ss.last;
-  }
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -98,6 +94,7 @@ class item extends StatelessWidget {
                           'current_data': current_data
                         }).onError(
                                 (e, _) => print("Error writing document: $e"));
+
                       },
                     ),
                   ));
@@ -108,7 +105,7 @@ class item extends StatelessWidget {
                     Text(
                       'Remove     ',
                       style: TextStyle(
-                          fontSize: 20.0,
+                          fontSize: 15.0,
                       ),
                     ),
                     Icon(
@@ -122,7 +119,31 @@ class item extends StatelessWidget {
                 ),
 
                 onPressed: () {
+                  db.collection('Orders').doc().set({
+                    'Email': email,
+                    'phone':phone_num ,
+                    'id': duc_id,
+                    'order_time':'time',
+                    'count': '1' ,
+                    'price':price,
+                    'new_price':new_price,
+                    'image':image,
+                    'location': location,
+                    'type':type
+                  }).onError((e, _) =>
+                      print("Error writing document: $e"));
+                  db.collection(current_user).doc('$duc_id').delete();
+                  Scaffold.of(context).showSnackBar(SnackBar(
+                    content: const Text(' Add successfully '),
+                    duration: const Duration(seconds: 2),
+                    action: SnackBarAction(
+                      label: 'Go to Orders',
+                      onPressed: () {
 
+
+                      },
+                    ),
+                  ));
 
                 },
                 child: Row(
@@ -132,7 +153,7 @@ class item extends StatelessWidget {
                     Text(
                       'Order now   ',
                       style: TextStyle(
-                          fontSize: 20.0,
+                          fontSize: 15.0,
                           fontFamily: 'new2'
                       ),
                     ),
@@ -142,62 +163,6 @@ class item extends StatelessWidget {
                     )
                   ],
                 )),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                        primary:  Color(0xFF111328)
-                    ),
-                    onPressed: () {
-
-                    },
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          '    Messenger     ',
-                          style: TextStyle(
-                              fontSize: 18.0,
-                          ),
-                        ),
-                        Icon(
-                          Icons.message,
-                        )
-                      ],
-                    )),
-                ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                        primary:  Color(0xFF111328)
-                    ),
-                    onPressed: () {
-                      final Uri _url = Uri.parse('tel:$phone_num');
-                      launchUrl(_url);
-                    },
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          '       Call  ',
-                          style: TextStyle(
-                              fontSize: 18.0,
-                          ),
-                        ),
-                        Icon(
-                          Icons.call,
-
-                        ),
-                        Text(
-                          '    ',
-                          style: TextStyle(
-                              fontSize: 18.0,
-                          ),
-                        ),
-                      ],
-                    ))
-              ],
-            )
           ],
         ));
   }
@@ -212,7 +177,7 @@ class Listitem extends StatelessWidget {
     return ListTile(
 
       title: Text (type   , style: TextStyle(
-          fontSize: 25.0,
+          fontSize: 15.0,
           fontWeight: FontWeight.bold,
           color: Colors.lightBlue),
       ),
@@ -222,15 +187,15 @@ class Listitem extends StatelessWidget {
         children: [
           Text(
             '$price',
-            style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),
+            style: TextStyle(fontSize: 10.0, fontWeight: FontWeight.bold),
           ),
           Text(
             time,
-            style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),
+            style: TextStyle(fontSize: 10.0, fontWeight: FontWeight.bold),
           ),
           Text(
             location,
-            style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),
+            style: TextStyle(fontSize: 10.0, fontWeight: FontWeight.bold),
           ),
         ],
       ),

@@ -30,15 +30,22 @@ class _profileState extends State<profile> {
   final ImagePicker _picker = ImagePicker();
   Future imgFromGallery() async {
     final pickedFile = await _picker.pickImage(source: ImageSource.gallery);
-    setState(() {
-      if (pickedFile != null) {
-        _photo = File(pickedFile.path);
-      } else {
-        print('No image selected.');
-      }
-    });
-    image_name = pickedFile?.name as String;
-    uploadFile();
+    try{
+      setState(() {
+        if (pickedFile != null) {
+          _photo = File(pickedFile.path);
+        } else {
+          print('No image selected.');
+        }
+      });
+      image_name = pickedFile?.name as String;
+      if(_photo!=null)
+          uploadFile();
+    }
+    catch(e){
+      return debugPrint('error her');
+    }
+
   }
 
   Future uploadFile() async {
@@ -77,9 +84,6 @@ class _profileState extends State<profile> {
           if (snapshot.connectionState == ConnectionState.done) {
             Map<String, dynamic> data =
                 snapshot.data!.data() as Map<String, dynamic>;
-            /*    username = '${(data['name'])}';
-            phone_num = '${(data['phone_num'])}';
-            city = '${(data['city'])}';*/
             return Column(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -121,7 +125,7 @@ class _profileState extends State<profile> {
                           }),
                         )),
                     Positioned(
-                        top: 320, left: 125, child: Icon(Icons.camera_alt))
+                        top: 340, left: 75, child: Icon(Icons.linked_camera))
                   ],
                 ),
                 TextField(
@@ -269,7 +273,7 @@ class _profileState extends State<profile> {
                       height: 42.0,
                       child: Text(
                         'Update !',
-                        style: TextStyle(fontSize: 24.0, color: Colors.white),
+                        style: TextStyle(fontSize: 20.0, color: Colors.white),
                       ),
                     ),
                   ),
@@ -290,7 +294,7 @@ class _profileState extends State<profile> {
                       height: 42.0,
                       child: Text(
                         ' My Car ',
-                        style: TextStyle(fontSize: 24.0, color: Colors.white),
+                        style: TextStyle(fontSize: 20.0, color: Colors.white),
                       ),
                     ),
                   ),
@@ -313,7 +317,7 @@ class _profileState extends State<profile> {
                       height: 42.0,
                       child: Text(
                         ' My Orders ',
-                        style: TextStyle(fontSize: 24.0, color: Colors.white),
+                        style: TextStyle(fontSize: 20.0, color: Colors.white),
                       ),
                     ),
                   ),
@@ -346,7 +350,7 @@ class _profileState extends State<profile> {
                       height: 42.0,
                       child: Text(
                         'Reset your Password ',
-                        style: TextStyle(fontSize: 24.0, color: Colors.white),
+                        style: TextStyle(fontSize:20.0, color: Colors.white),
                       ),
                     ),
                   ),

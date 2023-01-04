@@ -114,7 +114,7 @@ class item2 extends StatelessWidget {
                                 children: [
                                   SizedBox(height: 25.0),
                                   Text('Do You Went To Make Discount ?' ,style: TextStyle(
-                                    fontSize: 20.0
+                                    fontSize: 10.0
                                   ), ),
                                   SizedBox(height: 20.0),
                                   TextField(
@@ -217,7 +217,7 @@ class item2 extends StatelessWidget {
             title: Text(
               type,
               style: TextStyle(
-                  fontSize: 25.0,
+                  fontSize: 15.0,
                   fontWeight: FontWeight.bold,
                   color: Colors.lightBlue),
             ),
@@ -227,15 +227,15 @@ class item2 extends StatelessWidget {
               children: [
                 Text(
                   '$price',
-                  style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),
+                  style: TextStyle(fontSize: 10.0, fontWeight: FontWeight.bold),
                 ),
                 Text(
                   current_data,
-                  style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),
+                  style: TextStyle(fontSize: 10.0, fontWeight: FontWeight.bold),
                 ),
                 Text(
                   location,
-                  style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),
+                  style: TextStyle(fontSize: 10.0, fontWeight: FontWeight.bold),
                 ),
               ],
             ),
