@@ -15,7 +15,14 @@ void main() async {
   await Firebase.initializeApp( options: DefaultFirebaseOptions.currentPlatform,);
   await FirebaseAppCheck.instance.activate(webRecaptchaSiteKey: 'recaptcha-v3-site-key');
   final prefs = await SharedPreferences.getInstance();
-  check = prefs.getBool('Remember')!;
+  try{
+    check = prefs.getBool('Remember')!;
+  }
+  catch(e){
+    check=false;
+    tost(e.toString());
+  }
+
   runApp(MyApp());
 }
 class MyApp extends StatelessWidget {
