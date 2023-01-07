@@ -61,6 +61,7 @@ class _push_postsState extends State<push_posts> {
       print("Yeah, this line is printed immediately");
     });
   }
+
   Future uploadFile() async {
     if (_photo == null) return;
     try {
@@ -73,14 +74,16 @@ class _push_postsState extends State<push_posts> {
          setState(() async {
            image_url = (await ref.getDownloadURL()).toString();
          });
+
       ;
     } catch (e) {
       print('error occurred');
     }
 
   }
-   final user = FirebaseAuth.instance.currentUser;
+  final user = FirebaseAuth.instance.currentUser;
   @override
+
   Widget build(BuildContext context) {
     final user = FirebaseAuth.instance.currentUser;
     return SingleChildScrollView(

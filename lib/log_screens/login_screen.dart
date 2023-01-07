@@ -120,9 +120,14 @@ class _loginState extends State<login> {
                             password: pass
                         );
                         if(currentuser != null ){
-                          tost('Welcome');
-                          Navigator.push(
-                              context, MaterialPageRoute(builder: (context) => main_screen()));}
+                          Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (BuildContext context){
+                            return main_screen();
+                          }), (r){
+                            return false;
+                          });
+
+
+                          }
                         else
                         {
                           tost('Wrong Email or Password !');

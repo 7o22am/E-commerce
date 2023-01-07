@@ -1,5 +1,6 @@
 import 'package:dot_navigation_bar/dot_navigation_bar.dart';
 import 'package:e_commerce/log_screens/Home_screen.dart';
+import 'package:e_commerce/log_screens/login_screen.dart';
 import 'package:e_commerce/shop&orders/orders.dart';
 import 'package:e_commerce/log_screens/welcome_screen.dart';
 import 'package:e_commerce/user%20profile/profile_screen.dart';
@@ -16,6 +17,7 @@ class main_screen extends StatefulWidget {
 
   @override
   State<main_screen> createState() => _main_screenState();
+
 }
 
 int currentpage = 0;
@@ -23,6 +25,7 @@ List<Widget> pages = [home(), upload_data() ,  push_posts(), profile() ,];
 
 class _main_screenState extends State<main_screen> {
   @override
+
   final user = FirebaseAuth.instance.currentUser;
   void _onItemTapped(int index) {
     setState(() {
@@ -65,8 +68,11 @@ class _main_screenState extends State<main_screen> {
               user?.reload();
               await prefs.setBool('Remember', false);
               await prefs.setString('email', '');
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => welcome_page()));
+              Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (BuildContext context){
+                return login();
+              }), (r){
+                return false;
+              });
             });
 
           },
