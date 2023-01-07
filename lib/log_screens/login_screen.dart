@@ -1,10 +1,10 @@
 
-import 'package:e_commerce/registration_screen.dart';
+import 'package:e_commerce/log_screens/registration_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'Root.dart';
+import '../main/Root.dart';
 
 bool checkedValue =false;
 

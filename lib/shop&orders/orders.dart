@@ -1,9 +1,9 @@
 
-import 'package:e_commerce/orderRoot.dart';
-import 'package:e_commerce/shop_screen.dart';
+import 'package:e_commerce/shop&orders/orderRoot.dart';
+import 'package:e_commerce/shop&orders/shop_screen.dart';
 import 'package:flutter/material.dart';
 
-import 'Root.dart';
+import '../main/Root.dart';
 class myorders extends StatefulWidget {
   const myorders({Key? key}) : super(key: key);
 

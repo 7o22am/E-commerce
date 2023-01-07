@@ -1,29 +1,28 @@
 import 'dart:async';
 import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:e_commerce/shop_screen.dart';
+import 'package:e_commerce/shop&orders/shop_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:path/path.dart';
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
-import 'Push_posts.dart';
-import 'Root.dart';
-import 'orders.dart';
+import '../upload_iteam/Push_posts.dart';
+import '../main/itemRoot.dart';
+import '../shop&orders/orders.dart';
 
-var mAuth = FirebaseAuth.instance;
+
 DateTime current_date = DateTime.now();
 FirebaseFirestore db = FirebaseFirestore.instance;
 
 class profile extends StatefulWidget {
-  @override
   State<profile> createState() => _profileState();
 }
 
 class _profileState extends State<profile> {
-  CollectionReference users =
-  FirebaseFirestore.instance.collection('user_Inf');
+
+
   late String username, phone_num, city;
 
   File? _photo;
@@ -68,7 +67,7 @@ class _profileState extends State<profile> {
 
   @override
   Widget build(BuildContext context) {
-    user?.reload();
+    final user = FirebaseAuth.instance.currentUser;
     return SingleChildScrollView(
       physics: BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
       child: FutureBuilder<DocumentSnapshot>(
@@ -89,14 +88,8 @@ class _profileState extends State<profile> {
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 SizedBox(
-                  height: 24.0,
+                  height: 2.0,
                 ),
-                /*  CircleAvatar(
-                  backgroundImage: AssetImage('image/ks.gif' , ),
-                  minRadius: 90.0,
-
-
-                ) ,*/
                 Stack(
                   children: [
                     Image.asset('image/regis.gif'),
@@ -114,14 +107,20 @@ class _profileState extends State<profile> {
                             minRadius: 80.0,
                           ),
                           onTap: (() {
-                            imgFromGallery();
-                            db
-                                .collection('user_Inf')
-                                .doc('${(data['email'])}')
-                                .update({
-                              'image': image_url,
-                            }).onError((e, _) =>
-                                    print("Error writing document: $e"));
+                            try{
+                              imgFromGallery();
+                              db
+                                  .collection('user_Inf')
+                                  .doc('${(data['email'])}')
+                                  .update({
+                                'image': image_url,
+                              }).onError((e, _) =>
+                                  print("Error writing document: $e"));
+                            }
+                            catch(e){
+                              print('error');
+                            }
+
                           }),
                         )),
                     Positioned(
@@ -130,10 +129,12 @@ class _profileState extends State<profile> {
                 ),
                 TextField(
                   onChanged: (value) {
-                    if (value.isNotEmpty)
-                      username = value;
-                    else
-                      username = data['name'];
+                    setState(() {
+                      if (value.isNotEmpty)
+                        username = value;
+                      else
+                        username = data['name'];
+                    });
                   },
                   decoration: InputDecoration(
                     border: InputBorder.none,
@@ -179,10 +180,12 @@ class _profileState extends State<profile> {
                 ),
                 TextField(
                   onChanged: (value) {
-                    if (value.isNotEmpty)
-                      phone_num = value;
-                    else
-                      phone_num = data['phone_num'];
+                    setState(() {
+                      if (value.isNotEmpty)
+                        phone_num = value;
+                      else
+                        phone_num = data['phone_num'];
+                    });
                   },
                   keyboardType: TextInputType.number,
                   decoration: InputDecoration(
@@ -207,10 +210,12 @@ class _profileState extends State<profile> {
                 ),
                 TextField(
                   onChanged: (value) {
-                    if (value.isNotEmpty)
-                      city = value;
-                    else
-                      city = data['city'];
+                    setState(() {
+                      if (value.isNotEmpty)
+                        city = value;
+                      else
+                        city = data['city'];
+                    });
                   },
                   decoration: InputDecoration(
                     border: InputBorder.none,
@@ -241,33 +246,35 @@ class _profileState extends State<profile> {
                     elevation: 5.0,
                     child: MaterialButton(
                       onPressed: () async {
-                        db
-                            .collection('user_Inf')
-                            .doc('${(data['email'])}')
-                            .update({
-                          'name': username,
-                          'phone_num': phone_num,
-                          'city': city,
-                        }).onError(
-                                (e, _) => print("Error writing document: $e"));
-                        Scaffold.of(context).showSnackBar(SnackBar(
-                          content: const Text(' Edited successfully '),
-                          duration: const Duration(seconds: 3),
-                          action: SnackBarAction(
-                            label: 'back ?',
-                            onPressed: () {
-                              db
-                                  .collection('user_Inf')
-                                  .doc('${(data['email'])}')
-                                  .update({
-                                'name': '${(data['name'])}',
-                                'phone_num': '${(data['phone_num'])}',
-                                'city': '${(data['city'])}',
-                              }).onError((e, _) =>
-                                      print("Error writing document: $e"));
-                            },
-                          ),
-                        ));
+                        setState(() {
+                          db
+                              .collection('user_Inf')
+                              .doc('${(data['email'])}')
+                              .update({
+                            'name': username,
+                            'phone_num': phone_num,
+                            'city': city,
+                          }).onError(
+                                  (e, _) => print("Error writing document: $e"));
+                          Scaffold.of(context).showSnackBar(SnackBar(
+                            content: const Text(' Edited successfully '),
+                            duration: const Duration(seconds: 3),
+                            action: SnackBarAction(
+                              label: 'back ?',
+                              onPressed: () {
+                                db
+                                    .collection('user_Inf')
+                                    .doc('${(data['email'])}')
+                                    .update({
+                                  'name': '${(data['name'])}',
+                                  'phone_num': '${(data['phone_num'])}',
+                                  'city': '${(data['city'])}',
+                                }).onError((e, _) =>
+                                        print("Error writing document: $e"));
+                              },
+                            ),
+                          ));
+                        });
                       },
                       minWidth: 200.0,
                       height: 42.0,
@@ -335,16 +342,17 @@ class _profileState extends State<profile> {
                           content:  Text(' Check your E-mail ${user!.email.toString()}  '),
                           duration: const Duration(seconds: 3),
                           action: SnackBarAction(
-                            label: 'Go ',
-                            onPressed: () async {
+                            label: '',
+                            onPressed: () {
                               setState(() async {
                                 await FirebaseAuth.instance
                                     .sendPasswordResetEmail(
-                                        email: user!.email.toString().trim());
+                                        email: '${user.email}');
                               });
                             },
                           ),
                         ));
+
                       },
                       minWidth: 200.0,
                       height: 42.0,

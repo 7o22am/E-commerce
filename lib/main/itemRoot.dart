@@ -1,12 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:e_commerce/Push_posts.dart';
-
-import 'package:e_commerce/shop_screen.dart';
+import 'package:e_commerce/upload_iteam/Push_posts.dart';
+import 'package:e_commerce/shop&orders/shop_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-
-import 'package:url_launcher/url_launcher.dart';
-
 import 'Root.dart';
 
 
@@ -14,6 +10,7 @@ import 'Root.dart';
 bool buy_it = false;
 String select = 'All products';
 FirebaseFirestore db = FirebaseFirestore.instance;
+CollectionReference users = FirebaseFirestore.instance.collection('user_Inf');
 List<String> type_store = [
   'All products',
   'mens Fashion',
@@ -60,8 +57,6 @@ class itemRoot extends StatefulWidget {
 }
 
 class _itemRootState extends State<itemRoot> {
-  FirebaseFirestore db = FirebaseFirestore.instance;
-  CollectionReference users = FirebaseFirestore.instance.collection('user_Inf');
   @override
   final user = FirebaseAuth.instance.currentUser;
   DateTime current_date = DateTime.now();
@@ -128,7 +123,7 @@ class _itemRootState extends State<itemRoot> {
                 prefixIcon: Icon(Icons.search),
                 hintText: ' Search by Type of Items ... ',
                 contentPadding:
-                    EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
+                    EdgeInsets.symmetric(vertical: 6.0, horizontal: 14.0),
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.all(Radius.circular(32.0)),
                 ),
@@ -220,6 +215,7 @@ class Listitem extends StatelessWidget {
   String type, price, location, time, imagesee,
       current_user, email, image,new_price ,count,duc_id ,phone_num;
   DateTime order_date = DateTime.now();
+  final user = FirebaseAuth.instance.currentUser;
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -276,7 +272,7 @@ class Listitem extends StatelessWidget {
             size: 35,
           ),
           onPressed: () {
-            db.collection(current_user).doc().set({
+            db.collection('${user?.email}').doc().set({
               'Email': email,
               'image': image,
               'type': type,
@@ -381,7 +377,7 @@ class Listitem extends StatelessWidget {
                             style: ElevatedButton.styleFrom(
                                 primary: Color(0xFF111328)),
                             onPressed: () {
-                              db.collection(current_user).doc().set({
+                              db.collection('${user?.email}').doc().set({
                                 'Email': email,
                                 'image': image,
                                 'type': type,
@@ -413,7 +409,7 @@ class Listitem extends StatelessWidget {
                                 primary: Color(0xFF111328)),
                             onPressed: () {
                               db.collection('Orders').doc().set({
-                                'Email': email,
+                                'Email': user?.email,
                                 'phone':phone_num ,
                                 'id': duc_id,
                                 'order_time':time,
@@ -425,8 +421,7 @@ class Listitem extends StatelessWidget {
                                 'type':type
                               }).onError((e, _) =>
                                   print("Error writing document: $e"));
-
-                              tost('Add to Car Orders');
+                                  tost('Add to Car Orders');
 
                             },
                             child: Row(
@@ -463,6 +458,7 @@ class suggest extends StatefulWidget {
 
 class _suggestState extends State<suggest> {
   @override
+  final user = FirebaseAuth.instance.currentUser;
   Widget build(BuildContext context) {
     final Stream<QuerySnapshot> _usersStream =
         FirebaseFirestore.instance.collection('Post').snapshots();

@@ -1,16 +1,14 @@
 import 'package:dot_navigation_bar/dot_navigation_bar.dart';
-import 'package:e_commerce/Home_screen.dart';
-
-import 'package:e_commerce/orders.dart';
-import 'package:e_commerce/welcome_screen.dart';
-import 'package:e_commerce/profile_screen.dart';
-import 'package:e_commerce/shop_screen.dart';
-import 'package:e_commerce/my_posts.dart';
+import 'package:e_commerce/log_screens/Home_screen.dart';
+import 'package:e_commerce/shop&orders/orders.dart';
+import 'package:e_commerce/log_screens/welcome_screen.dart';
+import 'package:e_commerce/user%20profile/profile_screen.dart';
+import 'package:e_commerce/shop&orders/shop_screen.dart';
+import 'package:e_commerce/user%20profile/my_posts.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:path/path.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'Push_posts.dart';
+import '../upload_iteam/Push_posts.dart';
 
 final user = FirebaseAuth.instance.currentUser;
 class main_screen extends StatefulWidget {
@@ -25,6 +23,7 @@ List<Widget> pages = [home(), upload_data() ,  push_posts(), profile() ,];
 
 class _main_screenState extends State<main_screen> {
   @override
+  final user = FirebaseAuth.instance.currentUser;
   void _onItemTapped(int index) {
     setState(() {
       currentpage = index;

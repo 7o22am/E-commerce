@@ -9,7 +9,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 import 'package:path/path.dart';
-import 'Root.dart';
+import '../main/Root.dart';
 
 late String location = '', price = '', type = '',count='',
     phone_num = '',  dep,image_url='',image_name='';
@@ -61,7 +61,6 @@ class _push_postsState extends State<push_posts> {
       print("Yeah, this line is printed immediately");
     });
   }
-
   Future uploadFile() async {
     if (_photo == null) return;
     try {
@@ -74,17 +73,16 @@ class _push_postsState extends State<push_posts> {
          setState(() async {
            image_url = (await ref.getDownloadURL()).toString();
          });
-
       ;
     } catch (e) {
       print('error occurred');
     }
 
   }
-
+   final user = FirebaseAuth.instance.currentUser;
   @override
-
   Widget build(BuildContext context) {
+    final user = FirebaseAuth.instance.currentUser;
     return SingleChildScrollView(
       physics: BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
       child: Column(
@@ -205,6 +203,7 @@ class _push_postsState extends State<push_posts> {
                 child: const Text('  Push Now   ',
     style: TextStyle(color: Colors.white , fontSize: 18.0) ),
                 onPressed: () => {
+
                     if (location.isNotEmpty &&
                         type.isNotEmpty &&
                         price.isNotEmpty &&

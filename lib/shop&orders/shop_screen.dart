@@ -1,9 +1,9 @@
-import 'package:e_commerce/shopRoot.dart';
+import 'package:e_commerce/shop&orders/shopRoot.dart';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import 'Root.dart';
+import '../main/Root.dart';
 
 import 'orders.dart';
 

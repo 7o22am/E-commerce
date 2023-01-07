@@ -1,8 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:e_commerce/Home_screen.dart';
+import 'package:e_commerce/log_screens/Home_screen.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'Root.dart';
+import '../main/Root.dart';
 
 class ordersRoot extends StatefulWidget {
   const ordersRoot({Key? key}) : super(key: key);
@@ -16,7 +17,7 @@ class _ordersRootState extends State<ordersRoot> {
   final Stream<QuerySnapshot> _usersStream =
   FirebaseFirestore.instance.collection('Orders').snapshots();
   FirebaseFirestore db = FirebaseFirestore.instance;
-
+  final user = FirebaseAuth.instance.currentUser;
   Widget build(BuildContext context) {
     return StreamBuilder<QuerySnapshot>(
       stream: _usersStream,
@@ -24,18 +25,15 @@ class _ordersRootState extends State<ordersRoot> {
         if (snapshot.hasError) {
           return const Text('Something went wrong');
         }
-
         if (snapshot.connectionState == ConnectionState.waiting) {
           return const Text("Loading");
         }
-
         return ListView(
-
           children: snapshot.data!.docs
               .map((DocumentSnapshot document) {
             Map<String, dynamic> data =
             document.data()! as Map<String, dynamic>;
-            //  print(data['id']);
+            final user = FirebaseAuth.instance.currentUser;
             if(user?.email == data['Email'])
               return List_orders_item(order_email: data['Email'],
                 order_id: data['id'],

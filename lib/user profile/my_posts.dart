@@ -1,4 +1,4 @@
-import 'package:e_commerce/myPosts_Root.dart';
+import 'package:e_commerce/user%20profile/myPosts_Root.dart';
 import 'package:flutter/cupertino.dart';
 
 class upload_data extends StatefulWidget {

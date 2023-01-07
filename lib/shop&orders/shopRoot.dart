@@ -1,37 +1,28 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:e_commerce/registration_screen.dart';
-
+import 'package:e_commerce/log_screens/registration_screen.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:url_launcher/url_launcher.dart';
 
-import 'Root.dart';
-
-
-bool buy_it = false;
 class shopRoot extends StatefulWidget {
   @override
   _shopRootState createState() => _shopRootState();
 }
 class _shopRootState extends State<shopRoot> {
-
-  final Stream<QuerySnapshot> _usersStream =
-  FirebaseFirestore.instance.collection('${user?.email}').snapshots();
+  final user = FirebaseAuth.instance.currentUser;
   FirebaseFirestore db = FirebaseFirestore.instance;
-
   DateTime current_date = DateTime.now();
+
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<QuerySnapshot>(
-      stream: _usersStream,
+      stream: FirebaseFirestore.instance.collection('${user?.email}').snapshots(),
       builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
         if (snapshot.hasError) {
           return const Text('Something went wrong');
         }
-
         if (snapshot.connectionState == ConnectionState.waiting) {
           return const Text("Loading");
         }
-
         return ListView(
 
           children: snapshot.data!.docs
@@ -77,14 +68,15 @@ class item extends StatelessWidget {
                     primary:  Color(0xFF111328)
                 ),
                 onPressed: () {
-                  db.collection(current_user).doc('$duc_id').delete();
+                  final user = FirebaseAuth.instance.currentUser;
+                  db.collection('${user?.email}').doc('$duc_id').delete();
                   Scaffold.of(context).showSnackBar(SnackBar(
                     content: const Text(' Deleted successfully '),
                     duration: const Duration(seconds: 2),
                     action: SnackBarAction(
                       label: 'back ?',
                       onPressed: () {
-                        db.collection(current_user).doc().set({
+                        db.collection('${user?.email}').doc().set({
                           'Email': email,
                           'image':image,
                           'type': type,
@@ -119,8 +111,9 @@ class item extends StatelessWidget {
                 ),
 
                 onPressed: () {
+                  final user = FirebaseAuth.instance.currentUser;
                   db.collection('Orders').doc().set({
-                    'Email': email,
+                    'Email': user?.email,
                     'phone':phone_num ,
                     'id': duc_id,
                     'order_time':'time',
@@ -132,7 +125,7 @@ class item extends StatelessWidget {
                     'type':type
                   }).onError((e, _) =>
                       print("Error writing document: $e"));
-                  db.collection(current_user).doc('$duc_id').delete();
+                  db.collection('${user?.email}').doc('$duc_id').delete();
                   Scaffold.of(context).showSnackBar(SnackBar(
                     content: const Text(' Add successfully '),
                     duration: const Duration(seconds: 2),
