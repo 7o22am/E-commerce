@@ -50,6 +50,12 @@ dependencies:
   cupertino_icons: ^1.0.2
   path_provider: ^2.0.11
   firebase_app_check: ^0.1.1+1
+  flutter_launcher_icons: ^0.11.0
+flutter_icons:
+  image_path: "assets/image/app_icon.png"
+  android: "launcher_icon"
+  ios: true
+  image_path_android: "assets/image/app_icon.png"
 
 dev_dependencies:
   flutter_test:
@@ -62,6 +68,7 @@ dev_dependencies:
   # rules and activating additional ones.
   flutter_lints: ^2.0.0
   fluttertoast: ^8.0.9
+
 
 
 # For information on the generic Dart part of this file, see the
@@ -96,6 +103,7 @@ flutter:
     - image/story_image/woman.png
     - image/story_image/helth.png
     - image/new.gif
+    - image/app_icon.png
 
 
 

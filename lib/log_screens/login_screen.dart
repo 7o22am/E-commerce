@@ -1,4 +1,5 @@
 
+
 import 'package:e_commerce/log_screens/registration_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -13,11 +14,10 @@ class login extends StatefulWidget {
   @override
   State<login> createState() => _loginState();
 }
-
 class _loginState extends State<login> {
   @override
-
   String email='';
+  String forget_email='';
   String pass = '';
   void tost(String wrong ){
     Fluttertoast.showToast(
@@ -34,7 +34,6 @@ class _loginState extends State<login> {
     return Scaffold(
       backgroundColor: Colors.white,
       body:  Padding(
-
         padding: EdgeInsets.symmetric(horizontal: 24.0),
         child: SingleChildScrollView(
           child: Column(
@@ -42,7 +41,7 @@ class _loginState extends State<login> {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: <Widget>[
               SizedBox(
-                height: 150.0,
+                height: 50.0,
               ),
               Container(
                 height: 200.0,
@@ -106,7 +105,7 @@ class _loginState extends State<login> {
                 height: 24.0,
               ),
               Padding(
-                padding: EdgeInsets.symmetric(vertical: 20.0),
+                padding: EdgeInsets.symmetric(vertical: 5.0),
                 child: Material(
                   color: Colors.lightBlueAccent,
                   borderRadius: BorderRadius.all(Radius.circular(30.0)),
@@ -155,8 +154,78 @@ class _loginState extends State<login> {
                   ),
                 ),
               ),
+              Row(
+                children: [
+                  TextButton(
+                    onPressed: () {
+                      showDialog(
+                        context: context,
+                        builder: (ctx) => AlertDialog(
+                          title: const Text(" Forget Password "),
+                          content:     TextField(
+                            onChanged: (value) {
+                              forget_email=value;
+                            },
+                            decoration: InputDecoration(
+                              hintText: 'Enter your Email',
+                              contentPadding:
+                              EdgeInsets.symmetric(vertical: 7.0, horizontal: 12.0),
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.all(Radius.circular(32.0)),
+                              ),
+                              enabledBorder: OutlineInputBorder(
+                                borderSide:
+                                BorderSide(color: Colors.lightBlueAccent, width: 1.0),
+                                borderRadius: BorderRadius.all(Radius.circular(32.0)),
+                              ),
+                              focusedBorder: OutlineInputBorder(
+                                borderSide:
+                                BorderSide(color: Colors.lightBlueAccent, width: 2.0),
+                                borderRadius: BorderRadius.all(Radius.circular(32.0)),
+                              ),
+                            ),
+                          ),
+                          actions: <Widget>[
+                            TextButton(
+                              onPressed: () {
+                                Navigator.of(ctx).pop();
+                              },
+                              child:  Text("close"),
+
+                            ),
+                            TextButton(
+                              onPressed: ()  {
+                                  setState(() async {
+                                    if (forget_email.isNotEmpty && forget_email.contains('@')) {
+                                      await FirebaseAuth.instance
+                                          .sendPasswordResetEmail(
+                                          email: forget_email);
+                                        forget_email='';
+                                       tost(' Check your E-mail ');
+                                      Navigator.of(ctx).pop();
+                                    }
+                                    else
+                                      {
+                                        tost(' Enter veiled E-mail please ');
+                                      }
+                                  });
+
+                              },
+                              child:   Text("Send"),
+
+                            ),
+
+                          ],
+                        ),
+                      );
+                    },
+                    child: Text('  forget password ?'),
+                  ),
+                ],
+
+              ),
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 80.0,vertical: 8),
+                padding: const EdgeInsets.symmetric(horizontal: 70.0,vertical: 2),
                 child: CheckboxListTile(
 
                   title: Text("Remember me ?"),
@@ -171,7 +240,7 @@ class _loginState extends State<login> {
               ),
               Row(
                 children: [
-                  Text('          Dont have account ?',
+                  Text('          Don\'t have account ?',
                       style: TextStyle(color: Colors.black , fontSize: 18.0)) ,
                   TextButton(onPressed: (){
                     Navigator.push(context,

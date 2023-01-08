@@ -40,7 +40,7 @@ class _registrationState extends State<registration> {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: <Widget>[
               SizedBox(
-                height: 100.0,
+                height: 75.0,
               ),
               Container(
                 height: 200.0,
@@ -57,6 +57,7 @@ class _registrationState extends State<registration> {
                 onChanged: (value) {
                   username = value;
                 },
+                keyboardType: TextInputType.name,
                 decoration: InputDecoration(
                   hintText: 'Enter your Name ',
                   contentPadding:
@@ -81,6 +82,7 @@ class _registrationState extends State<registration> {
                 onChanged: (value) {
                   email = value;
                 },
+                keyboardType: TextInputType.emailAddress,
                 decoration: InputDecoration(
                   hintText: 'Enter your Email',
                   contentPadding:
@@ -106,6 +108,7 @@ class _registrationState extends State<registration> {
                 onChanged: (value) {
                   pass = value;
                 },
+
                 decoration: InputDecoration(
                   hintText: 'Enter your Password',
                   contentPadding:
@@ -130,6 +133,7 @@ class _registrationState extends State<registration> {
                 onChanged: (value) {
                   phone_num = value;
                 },
+                keyboardType: TextInputType.phone,
                 decoration: InputDecoration(
                   hintText: 'Enter your Phone Number  ',
                   contentPadding:
@@ -154,6 +158,7 @@ class _registrationState extends State<registration> {
                 onChanged: (value) {
                   city = value;
                 },
+                keyboardType: TextInputType.text,
                 decoration: InputDecoration(
                   hintText: 'Enter your City ',
                   contentPadding:
@@ -186,12 +191,12 @@ class _registrationState extends State<registration> {
                       if (username.isNotEmpty && email.isNotEmpty &&
                           city.isNotEmpty&& phone_num.isNotEmpty && pass.isNotEmpty ) {
                         try {
-                          final newusaer = await FirebaseAuth.instance
+                          final new_user = await FirebaseAuth.instance
                               .createUserWithEmailAndPassword(
                             email: email,
                             password: pass,
                           );
-                          if (newusaer != null) {
+                          if (new_user != null) {
                             tost('Registration Complete Please Log In ');
                             Navigator.push(context,
                                 MaterialPageRoute(builder: (context) => login()));

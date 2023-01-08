@@ -309,6 +309,8 @@ class Listitem extends StatelessWidget {
                   child: Container(
                     child: Column(
                       children: [
+                        Image.network('$imagesee'),
+                        SizedBox(height: 5,),
                         ListTile(
                           title: Text(
                             type,
@@ -317,7 +319,6 @@ class Listitem extends StatelessWidget {
                                 fontWeight: FontWeight.bold,
                                 color: Colors.lightBlue),
                           ),
-
                           subtitle: Column(
                             mainAxisAlignment: MainAxisAlignment.start,
                             crossAxisAlignment: CrossAxisAlignment.start,
@@ -371,7 +372,6 @@ class Listitem extends StatelessWidget {
                             onPressed: () {
                             },
                           ),
-                          leading: Image.network('$imagesee', height: 10000.0),
                         ),
                         ElevatedButton(
                             style: ElevatedButton.styleFrom(

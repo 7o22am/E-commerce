@@ -129,12 +129,11 @@ class _profileState extends State<profile> {
                 ),
                 TextField(
                   onChanged: (value) {
-                    setState(() {
                       if (value.isNotEmpty)
                         username = value;
                       else
                         username = data['name'];
-                    });
+
                   },
                   decoration: InputDecoration(
                     border: InputBorder.none,
@@ -180,12 +179,12 @@ class _profileState extends State<profile> {
                 ),
                 TextField(
                   onChanged: (value) {
-                    setState(() {
+
                       if (value.isNotEmpty)
                         phone_num = value;
                       else
                         phone_num = data['phone_num'];
-                    });
+
                   },
                   keyboardType: TextInputType.number,
                   decoration: InputDecoration(
@@ -210,12 +209,12 @@ class _profileState extends State<profile> {
                 ),
                 TextField(
                   onChanged: (value) {
-                    setState(() {
+
                       if (value.isNotEmpty)
                         city = value;
                       else
                         city = data['city'];
-                    });
+
                   },
                   decoration: InputDecoration(
                     border: InputBorder.none,
@@ -338,20 +337,22 @@ class _profileState extends State<profile> {
                     elevation: 5.0,
                     child: MaterialButton(
                       onPressed: () async {
-                        Scaffold.of(context).showSnackBar(SnackBar(
-                          content:  Text(' Check your E-mail ${user!.email.toString()}  '),
-                          duration: const Duration(seconds: 3),
-                          action: SnackBarAction(
-                            label: '',
-                            onPressed: () {
-                              setState(() async {
-                                await FirebaseAuth.instance
-                                    .sendPasswordResetEmail(
-                                        email: '${user.email}');
-                              });
-                            },
-                          ),
-                        ));
+                        setState(() async {
+                          await FirebaseAuth.instance
+                              .sendPasswordResetEmail(
+                              email: '${user?.email}');
+                          Scaffold.of(context).showSnackBar(SnackBar(
+                            content:  Text(' Check your E-mail ${user!.email.toString()}  '),
+                            duration: const Duration(seconds: 3),
+                            action: SnackBarAction(
+                              label: '',
+                              onPressed: () {
+
+                              },
+                            ),
+                          ));
+                        });
+
 
                       },
                       minWidth: 200.0,

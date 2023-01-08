@@ -54,6 +54,7 @@ class _uploadRootState extends State<uploadRoot> {
                     current_user: '${user?.email}',
                     current_data: '$current_date',
                     image_name: data['image_name'],
+                    new_price: data['new_price'],
                   );
                 } else
                   return SizedBox(
@@ -78,6 +79,7 @@ class item2 extends StatelessWidget {
       required this.duc_id,
       required this.current_user,
       required this.image_name,
+       required this.new_price,
       required this.current_data});
   final String email,
       type,
@@ -87,6 +89,7 @@ class item2 extends StatelessWidget {
       duc_id,
       current_user,
       current_data,
+      new_price,
       image_name;
 
   @override
@@ -224,9 +227,27 @@ class item2 extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  '$price',
-                  style: TextStyle(fontSize: 10.0, fontWeight: FontWeight.bold),
+                if(new_price.isEmpty) Text(
+                  '$price EGY'  ,
+                  style: TextStyle(fontSize: 15.0, fontWeight: FontWeight.bold,
+                  ),
+                  maxLines: 1,
+                )
+                else Row(
+                  children: [
+                    Text(
+                      price ,
+                      style: TextStyle(fontSize: 15.0, fontWeight: FontWeight.bold,decoration: TextDecoration.lineThrough
+                      ),
+                      maxLines: 1,
+                    ),
+                    Text(
+                      '  $new_price EGY' ,
+                      style: TextStyle(fontSize: 15.0, fontWeight: FontWeight.bold,
+                      ),
+                      maxLines: 1,
+                    )
+                  ],
                 ),
                 Text(
                   current_data,
